@@ -61,3 +61,13 @@ Device.belongsTo(Type);
 
 Brand.hasMany(Device);
 Device.belongsTo(brand);
+
+
+Device.hasMany(BasketDevice);
+BasketDevice.belongsTo(Device);
+
+Device.hasMany(DeviceInfo);
+DeviceInfo.belongsTo(Device);
+
+Device.hasMany(Rating); 
+Rating.belongsTo(Device);
