@@ -9,3 +9,7 @@ const User = db.define('user', {
     role: { type: DataTypes.STRING, defaultValue: "USER"} 
 });
 
+const Basket = db.define('basket', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+});
+
