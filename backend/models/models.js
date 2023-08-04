@@ -47,3 +47,8 @@ const DeviceInfo = db.define('device_info', {
     description: { type: DataTypes.STRING, allowNull: false },
 });
 
+User.hasOne(Basket);
+Basket.belongsTo(User);
+
+User.hasMany(Rating);
+Rating.belongsTo(User);
