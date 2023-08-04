@@ -44,5 +44,6 @@ const Rating = db.define('rating', {
 const DeviceInfo = db.define('device_info', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     title: { type: DataTypes.STRING, allowNull: false },
+    description: { type: DataTypes.STRING, allowNull: false },
 });
 
