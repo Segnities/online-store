@@ -1,12 +1,11 @@
 const express = require('express');
 
 const router = express.Router();
+const UserController = require('../controllers/userController');
 
-router.post('/registration');
-router.post('/login');
-router.get('/auth', (req, res) => {
-    res.json({ message: 'Auth success!' })
-});
+router.post('/registration', UserController.registration);
+router.post('/login',  UserController.login);
+router.get('/auth', UserController.auth);
 
 
 module.exports = router;
