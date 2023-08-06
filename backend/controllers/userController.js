@@ -1,16 +1,16 @@
+const ApiError = require("../error/ApiError");
+
 class UserController {
     async registration(req, res) {
     }
 
-    async auth(req, res) {
-        const { id } = req.body;
-        
+    async auth(req, res, next) {
+        const { id } = req.query;
+
         if (!id) {
-            res.status(400).json({ message: 'Id is not found' });
+            return next(ApiError.badRequest('Id is not specified'));
         }
-
         res.json({ message: 'Auth success!' });
-
     }
     async login(req, res) {
 

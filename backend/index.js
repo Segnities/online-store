@@ -8,9 +8,14 @@ const app = express();
 const models = require('./models/models.js');
 const mainRouter = require('./routes/index.js');
 
+const errorMiddleware = require('./middleware/ErrorHanldingMiddleware.js');
+
 app.use(express.json());
 app.use(cors());
 app.use('/api', mainRouter);
+
+
+app.use(errorMiddleware);
 
 app.get('/', (req, res) => {
     res.status(200).json({ message: 'Working' })
