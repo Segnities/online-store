@@ -19,8 +19,10 @@ class DeviceRouter {
             if (!img) {
                 return next(ApiError.badRequest("Image is required"));
             }
-
             let fileName = uuid.v4() + ".jpg";
+
+            img.mv(path.resolve(__dirname, '..', 'static', fileName));
+
             const device = await Device.create({
                 name, price, brandId, typeId,
                 img: fileName
