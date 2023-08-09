@@ -4,6 +4,7 @@ const { Device, DeviceInfo } = require('../models/models');
 
 const ApiError = require('../error/ApiError');
 
+
 class DeviceRouter {
     async getAll(req, res) {
         let { brandId, typeId, limit, page, info } = req.query;
