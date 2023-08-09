@@ -14,10 +14,6 @@ const generateJwtToken = (id, email, role) => {
 }
 
 class UserController {
-    static #generateJwt(id, email, role) {
-
-    }
-
     async registration(req, res, next) {
         const { email, password, role } = req.body;
         if (!email || !password) {
@@ -44,8 +40,20 @@ class UserController {
         }
         res.json({ message: 'Auth success!' });
     }
-    async login(req, res) {
+    async login(req, res, next) {
+        const { email, password } = req.body;
+        const user = await User.findOne({ where: { email } });
+        if (!user) {
+            return next(ApiError.internal('User not found'));
+        }
+        const comparePassword = bcrypt.compareSync(password, user.password);
 
+        if (!comparePassword) {
+            return next(ApiError.internal('Incorrect password'));
+        }
+        const jwt = generateJwtToken(user.id, user.email, user.role);
+
+        return res.json({ jwt });
     }
 }
 
