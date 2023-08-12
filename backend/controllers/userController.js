@@ -33,13 +33,10 @@ class UserController {
     }
 
     async auth(req, res, next) {
-        const { id } = req.query;
-
-        if (!id) {
-            return next(ApiError.badRequest('Id is not specified'));
-        }
-        res.json({ message: 'Auth success!' });
+        const token = generateJwtToken(req.user.id, req.user.email, req.user.role);
+        return res.json({ token });
     }
+
     async login(req, res, next) {
         const { email, password } = req.body;
         const user = await User.findOne({ where: { email } });
