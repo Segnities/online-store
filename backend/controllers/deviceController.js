@@ -41,10 +41,12 @@ class DeviceRouter {
     async getOne(req, res) {
         const { id } = req.params;
 
-        const device = await Device.findOne({ where: { id }, include: {
-            model: DeviceInfo,
-            as: 'info'
-        } });
+        const device = await Device.findOne({
+            where: { id }, include: {
+                model: DeviceInfo,
+                as: 'info'
+            }
+        });
         return res.json(device);
     }
 
@@ -68,6 +70,38 @@ class DeviceRouter {
             return res.json(device);
         } catch (error) {
             return next(ApiError.badRequest(error.message));
+        }
+    }
+    async update(req, res, next) {
+        try {
+            const { id } = req.params;
+            const { name, price, brandId, typeId } = req.body;
+
+            const files = req.files;
+
+            if (!files?.img) {
+                const device = await Device.update({ name, price, brandId, typeId }, { where: { id } });
+                return res.json(device);
+            }
+            const fileName = uuid.v4() + ".jpg";
+            files?.img.mv(path.resolve(__dirname, '..', 'static', fileName));
+
+            const device = await Device.update({ name, price, brandId, typeId, img: fileName }, { where: { id } });
+
+            res.json({ message: "Device updated successfully!", device });
+        } catch (err) {
+            next(ApiError.badRequest(err.message));
+        }
+    }
+
+    async delete(req, res, next) {
+        try {
+            const { id } = req.params;
+            const device = await Device.destroy({ where: { id } });
+            return res.json({ message: "Device deleted successfully!", device });
+        }
+        catch (error) {
+            next(ApiError.badRequest(error.message));
         }
 
     }
