@@ -1,15 +1,52 @@
 const uuid = require('uuid');
 const path = require('path');
-const fs = require('fs');
-const { Device } = require('../models/models');
+const { Device, DeviceInfo } = require('../models/models');
 
 const ApiError = require('../error/ApiError');
 
-class DeviceRouter {
-    async getAll() {
 
+class DeviceRouter {
+    async getAll(req, res) {
+        let { brandId, typeId, limit, page, info } = req.query;
+        page = page || 1;
+        limit = limit || 10;
+
+        let offset = (page * limit) - limit;
+
+        if (info) {
+            info = JSON.parse(info);
+            info.forEach(i => {
+                DeviceInfo.create({
+                    title: i.title,
+                    description: i.description,
+                    deviceId: i.id
+                });
+            })
+        }
+
+        let devices;
+
+        if (!brandId && !typeId) {
+            devices = await Device.findAndCountAll({ limit, offset });
+        } else if (!brandId) {
+            devices = await Device.findAndCountAll({ where: { typeId }, limit, offset });
+        } else if (!typeId) {
+            devices = await Device.findAndCountAll({ where: { brandId }, limit, offset });
+        } else {
+            devices = await Device.findAndCountAll({ where: { brandId, typeId }, offset, limit });
+        }
+        return res.json(devices);
     }
-    async getOne() { }
+
+    async getOne(req, res) {
+        const { id } = req.params;
+
+        const device = await Device.findOne({ where: { id }, include: {
+            model: DeviceInfo,
+            as: 'info'
+        } });
+        return res.json(device);
+    }
 
     async create(req, res, next) {
         try {
