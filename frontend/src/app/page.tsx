@@ -2,8 +2,8 @@ import styles from './page.module.css'
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-            
+    <main>
+      <h2 className='text-2xl text-green-700 font-bold'>One</h2>
     </main>
   )
 }
