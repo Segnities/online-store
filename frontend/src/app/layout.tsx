@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google';
 import MobxProvider from '@/store/MobxProvider';
 
 import './globals.css'
+import Navbar from '@/components/Navbar';
 
 export const metadata: Metadata = {
   title: 'Shop4every1',
@@ -29,6 +30,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <MobxProvider>
+          <Navbar />
           {children}
         </MobxProvider>
       </body>
