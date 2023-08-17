@@ -1,13 +1,15 @@
 
 import { memo } from "react";
 
-import { Formik, Form } from "formik";
 import type { FormikProps } from "formik";
+import { Form, Formik } from "formik";
 
 import * as Yup from "yup";
 import AuthInput from "./AuthInput";
-import { Button } from "@mui/material";
-import Link from "next/link";
+
+import AuthButton from "./AuthButton";
+import AuthFormMessage from "./AuthFormMessage";
+import AuthHeader from "./AuthHeader";
 
 export interface AuthFormValues {
     email: string;
@@ -26,7 +28,7 @@ const authFormValidationSchema = Yup.object({
 function AuthForm() {
     return (
         <div className="w-4/5 md:w-2/5 flex flex-col gap-5 border-2 border-gray-200 rounded-lg p-8 lg:p-14">
-            <h2 className="text-xl md:text-3xl fond-semibold  text-center">Auth</h2>
+            <AuthHeader />
             <Formik
                 initialValues={{
                     email: "",
@@ -59,14 +61,8 @@ function AuthForm() {
                             ariaErrorMessage={props.errors.password}
                             ariaLabel="Password"
                         />
-                        <Button
-                            variant="contained"
-                            type="submit"
-                            size="large"
-                        >
-                            Log in
-                        </Button>
-                        <p className="text-center">No account yet? <Link className="text-blue-500 underline underline-offset-4" href="/register">Register now!</Link></p>
+                        <AuthButton />
+                        <AuthFormMessage />
                     </Form>
                 )}
 
