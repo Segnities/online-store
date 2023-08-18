@@ -9,6 +9,9 @@ export default class ProductStore {
     private _brands: ProductBrand[];
     private _devices: ProductDevices[];
 
+    private _selectedType: ProductType | null = null;
+    private _selectedBrand: ProductBrand | null = null;
+
     generateDevices() {
         const generatedDevices: ProductDevices[] = [];
 
@@ -28,6 +31,8 @@ export default class ProductStore {
         this._types = [
             { id: 1, name: "Fridges" },
             { id: 2, name: "Smartphones" },
+            { id: 3, name: "Laptops" },
+            { id: 4, name: "TVs" },
         ];
         this._brands = [
             { id: 1, name: 'Samsung' },
@@ -37,15 +42,31 @@ export default class ProductStore {
         makeAutoObservable(this);
     }
 
-    setTypes(types: ProductType[]) {
+    public setTypes(types: ProductType[]) {
         this._types = types;
     }
-    setBrands(brands: ProductBrand[]) {
+    public setBrands(brands: ProductBrand[]) {
         this._brands = brands;
     }
 
-    setDevices(devices: ProductDevices[]) {
+    public setSelectedBrand(brand: ProductBrand | null) {
+        this._selectedBrand = brand;
+    }
+
+    public setDevices(devices: ProductDevices[]) {
         this._devices = devices;
+    }
+
+    public setSelectedType(type: ProductType | null) {
+        this._selectedType = type;
+    }
+
+    get selectedType() {
+        return this._selectedType;
+    }
+
+    get selectedBrand() { 
+        return this._selectedBrand;
     }
 
     get types() {
