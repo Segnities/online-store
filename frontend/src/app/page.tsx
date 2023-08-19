@@ -1,5 +1,5 @@
 import BrandBar from "@/components/BrandBar";
-import ProductList from "@/components/DeviceList";
+import DeviceList from "@/components/DeviceList";
 import TypeBar from "@/components/TypeBar";
 import Grid from "@mui/material/Grid";
 
@@ -19,7 +19,7 @@ export default function Home() {
         </Grid>
         <Grid item xs={12} md={9} spacing={3}>
           <BrandBar />
-          <ProductList />
+          <DeviceList />
         </Grid>
       </Grid>
     </main >

@@ -21,7 +21,7 @@ export default class ProductStore {
                 name: `Product ${i}`,
                 price: Math.random() * 1000,
                 rating: Math.floor(Math.random() * 6),
-                img: `/image_${i}.jpg`,
+                img: `https://wallpapers.com/images/hd/cat-with-shades-cool-picture-lkenou4wsqrbib37.jpg`,
                 createdAt: new Date().toISOString(),
                 updatedAt: new Date().toISOString(),
             });

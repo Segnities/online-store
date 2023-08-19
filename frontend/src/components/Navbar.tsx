@@ -11,11 +11,12 @@ import { observer } from "mobx-react-lite";
 
 function Navbar() {
     const store = useContext(MobxContext);
+    const isAuth = store?.user.isAuth;
     return (
         <nav className="flex px-4 md:px-20 py-6 justify-between items-center w-full h-22 bg-slate-700">
             <NavbarBrand />
             {
-                store?.user.isAuth ? <AdminNavbarPanel /> : <UserNavbarPanel />
+                isAuth ? <AdminNavbarPanel /> : <UserNavbarPanel />
             }
         </nav>
     )
