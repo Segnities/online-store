@@ -1,12 +1,11 @@
 'use client';
 
-import { useContext, memo } from "react";
+import { memo, useContext } from "react";
 
 import { MobxContext } from "@/store/MobxProvider";
 
-import DeviceItem from "./DeviceItem";
 import { observer } from "mobx-react-lite";
-import { Grid } from "@mui/material";
+import DeviceItem from "./DeviceItem";
 
 function DeviceList() {
     const store = useContext(MobxContext);
