@@ -4,4 +4,6 @@ export interface ProductDevices {
     price: number;
     rating: number;
     img: string;
+    createdAt: string;
+    updatedAt: string;
 }

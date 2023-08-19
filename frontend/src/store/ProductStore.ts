@@ -21,7 +21,9 @@ export default class ProductStore {
                 name: `Product ${i}`,
                 price: Math.random() * 1000,
                 rating: Math.floor(Math.random() * 6),
-                img: `image_${i}.jpg`,
+                img: `/image_${i}.jpg`,
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString(),
             });
         }
         return generatedDevices;
@@ -36,7 +38,18 @@ export default class ProductStore {
         ];
         this._brands = [
             { id: 1, name: 'Samsung' },
-            { id: 2, name: 'Apple' }
+            { id: 2, name: 'Apple' },
+            { id: 3, name: 'LG' },
+            { id: 4, name: 'Sony' },
+            { id: 5, name: 'Huawei' },
+            { id: 6, name: 'Xiaomi' },
+            { id: 7, name: 'Motorola' },
+            { id: 8, name: 'Nokia' },
+            { id: 9, name: 'Micromax' },
+            { id: 10, name: 'Asus' },
+            { id: 11, name: 'MSI' },
+            { id: 12, name: 'Acer' },
+            { id: 13, name: 'Dell' },
         ];
         this._devices = this.generateDevices();
         makeAutoObservable(this);
@@ -65,7 +78,7 @@ export default class ProductStore {
         return this._selectedType;
     }
 
-    get selectedBrand() { 
+    get selectedBrand() {
         return this._selectedBrand;
     }
 

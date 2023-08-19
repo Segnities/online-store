@@ -23,7 +23,7 @@ function BrandBar() {
     }
 
     return (
-        <section className="flex">
+        <section className="flex flex-row flex-wrap">
             <Divider />
             {
                 brands?.map((brand) => {
