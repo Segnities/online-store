@@ -1,3 +1,4 @@
+import { useRouter } from "next/navigation";
 
 import { ProductDevices } from "@/types/product-devices";
 import { Star } from "@mui/icons-material";
@@ -13,10 +14,14 @@ interface DeviceItemProps {
 
 function DeviceItem(props: DeviceItemProps) {
     const device = props.product;
+    const router = useRouter();
     const clientSide = useClientSide();
 
     return (
-        <Card className="lg:w-80 md:w-4/5 sm:w-11/12 w-full cursor-pointer">
+        <Card
+            className="lg:w-80 md:w-4/5 sm:w-11/12 w-full cursor-pointer"
+            onClick={() => router.push(`/device/${device.id}`)}   
+        >
             <CardActionArea>
                 <DeviceItemImage name={device.name} href={device.img} />
                 <CardContent>
