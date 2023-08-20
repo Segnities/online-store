@@ -19,7 +19,7 @@ export default class ProductStore {
             generatedDevices.push({
                 id: i,
                 name: `Product ${i}`,
-                price: Math.random() * 1000,
+                price: 5000,
                 rating: Math.floor(Math.random() * 6),
                 img: `https://wallpapers.com/images/hd/cat-with-shades-cool-picture-lkenou4wsqrbib37.jpg`,
                 createdAt: new Date().toISOString(),
@@ -60,6 +60,14 @@ export default class ProductStore {
     }
     public setBrands(brands: ProductBrand[]) {
         this._brands = brands;
+    }
+
+    public getProductById(productId: number) {
+        for (let device of this._devices) {
+            if(productId === device.id) {
+                return device;
+            }
+        } 
     }
 
     public setSelectedBrand(brand: ProductBrand | null) {
