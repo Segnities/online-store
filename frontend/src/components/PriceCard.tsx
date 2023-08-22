@@ -10,6 +10,7 @@ interface PriceCardProps {
 
 function PriceCard(props: PriceCardProps) {
     const { price } = props;
+    
 
     return (
         <Card className="flex flex-col justify-between h-full p-5">

@@ -70,6 +70,33 @@ export default class ProductStore {
         } 
     }
 
+    public getProductDescription(productId: number) {
+        return [
+            {
+                id: 1,
+                title: "Memory",
+                description: "5 GB" 
+            },
+            {
+                id: 2,
+                title: "Camera",
+                description: "12 MgPx" 
+            },
+            {
+                id: 3,
+                title: "Battery",
+                description: "3000 mAh",
+            }, 
+            {
+                id: 4,
+                title: "OS",
+                description: "Android"
+
+            }
+
+        ];
+    }
+
     public setSelectedBrand(brand: ProductBrand | null) {
         this._selectedBrand = brand;
     }
