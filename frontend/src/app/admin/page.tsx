@@ -1,13 +1,35 @@
 'use client';
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import { MobxContext } from "@/store/MobxProvider";
+import { Button } from "@mui/material";
+import CreateBrandModal from "@/components/CreateBrandModal";
 
-export default function Admin() {
+function Admin() {
     const store = useContext(MobxContext);
+    const [openCreateBrandModal, setOpenCreateBrandModal] = useState<boolean>(false);
     return (
-        <div>
-            <h1>Admin page {store?.user.isAuth ? 'Authenticated' : ':( Nope. Not authenticated'}</h1>
+        <div className="grid grid-flow-row p-8">
+            <div className="grid grid-flow-col gap-2">
+                <Button
+                    variant="outlined"
+                    onClick={() => setOpenCreateBrandModal(true)}
+                >
+                    Add brand
+                </Button>
+                <Button variant="outlined">
+                    Add category
+                </Button>
+                <Button variant="outlined">
+                    Add device
+                </Button>
+            </div>
+            <CreateBrandModal
+                isOpen={openCreateBrandModal}
+                setIsOpen={setOpenCreateBrandModal}
+            />
         </div>
-    )
+    );
 }
+
+export default Admin;

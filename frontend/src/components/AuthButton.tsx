@@ -14,6 +14,7 @@ function AuthButton() {
             variant="contained"
             type="submit"
             size="large"
+            className="bg-sky-500 hover:bg-sky-600"
         >
             {
                 isLoginPage ? 'Login' : 'Sign up'

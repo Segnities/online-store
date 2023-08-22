@@ -1,17 +1,14 @@
 'use client';
 
-import { useContext } from "react";
-
-import { MobxContext } from "@/store/MobxProvider";
-
+import DeviceDescription from "@/components/DeviceDescription";
 import DeviceHeader from "@/components/DeviceHeader";
 
-
 export default function Device({ params }: { params: { slug: string } }) {
-    const store = useContext(MobxContext);
     const deviceId = parseInt(params.slug);
-
     return (
-        <DeviceHeader slug={deviceId} />
+        <div className="flex flex-col gap-3">
+            <DeviceHeader slug={deviceId} />
+            <DeviceDescription deviceId={deviceId} />
+        </div>
     );
 }
