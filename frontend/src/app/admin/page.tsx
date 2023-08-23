@@ -1,13 +1,16 @@
 'use client';
-import { useContext, useState } from "react";
+import { useState } from "react";
 
-import { MobxContext } from "@/store/MobxProvider";
-import { Button } from "@mui/material";
 import CreateBrandModal from "@/components/CreateBrandModal";
+import CreateDeviceModal from "@/components/CreateDeviceModal";
+import CreateTypeModal from "@/components/CreateTypeModal";
+import { Button } from "@mui/material";
 
 function Admin() {
-    const store = useContext(MobxContext);
     const [openCreateBrandModal, setOpenCreateBrandModal] = useState<boolean>(false);
+    const [openCreateTypeModal, setOpenCreateTypeModal] = useState<boolean>(false);
+    const [openCreateDeviceModal, setOpenCreateDeviceModal] = useState<boolean>(false);
+
     return (
         <div className="grid grid-flow-row p-8">
             <div className="grid grid-flow-col gap-2">
@@ -17,16 +20,30 @@ function Admin() {
                 >
                     Add brand
                 </Button>
-                <Button variant="outlined">
+                <Button
+                    variant="outlined"
+                    onClick={() => setOpenCreateTypeModal(true)}
+                >
                     Add category
                 </Button>
-                <Button variant="outlined">
+                <Button
+                    variant="outlined"
+                    onClick={() => setOpenCreateDeviceModal(true)}
+                >
                     Add device
                 </Button>
             </div>
             <CreateBrandModal
                 isOpen={openCreateBrandModal}
                 setIsOpen={setOpenCreateBrandModal}
+            />
+            <CreateTypeModal
+                isOpen={openCreateTypeModal}
+                setIsOpen={setOpenCreateTypeModal}
+            />
+            <CreateDeviceModal
+                isOpen={openCreateDeviceModal}
+                setIsOpen={setOpenCreateDeviceModal}
             />
         </div>
     );

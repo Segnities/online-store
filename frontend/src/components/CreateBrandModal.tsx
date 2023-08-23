@@ -1,12 +1,11 @@
-import { useState } from "react";
 import { Form, Formik } from "formik";
 
 import * as Yup from "yup";
 
 import { Button } from "@mui/material";
 
+import FormikInput from "./FormikInput";
 import Modal from "./UI/Modal";
-import FormikCustomInput from "./FormikCustomInput";
 
 interface CreateBrandModalProps {
     isOpen: boolean;
@@ -37,7 +36,7 @@ export default function CreateBrandModal(props: CreateBrandModalProps) {
                 >
                     {(props) => (
                         <Form>
-                            <FormikCustomInput 
+                            <FormikInput
                                 label="Title"
                                 variant="outlined"
                                 type="text"
@@ -57,7 +56,7 @@ export default function CreateBrandModal(props: CreateBrandModalProps) {
                     color="success"
                     size="large"
                 >
-                    Close
+                    Create
                 </Button>
                 <Button
                     variant="outlined"
