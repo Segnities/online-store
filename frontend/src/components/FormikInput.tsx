@@ -5,7 +5,7 @@ import { useField } from "formik";
 import TextField from "@mui/material/TextField";
 import FormikCustomField from "@/types/formik-custom-field";
 
-function FormikCustomInput(props: FormikCustomField) {
+function FormikInput(props: FormikCustomField) {
     const [field] = useField(props);
     return (
         <TextField
@@ -22,4 +22,4 @@ function FormikCustomInput(props: FormikCustomField) {
     );
 }
 
-export default memo(FormikCustomInput);
+export default memo(FormikInput);

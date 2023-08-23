@@ -1,4 +1,4 @@
-export default function Admin404() {
+export default function NotFound() {
     return (
         <div>404!</div>
     );

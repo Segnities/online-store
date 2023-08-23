@@ -7,7 +7,7 @@ import { Form, Formik } from "formik";
 import Card from "@mui/material/Card";
 
 import * as Yup from "yup";
-import FormikCustomInput from "./FormikCustomInput";
+import FormikInput from "./FormikInput";
 
 import AuthButton from "./AuthButton";
 import AuthFormMessage from "./AuthFormMessage";
@@ -48,7 +48,7 @@ function AuthForm() {
                     <Form
                         className="w-full grid grid-rows-2 grid-col-1 gap-5"
                     >
-                        <FormikCustomInput
+                        <FormikInput
                             label="Email"
                             variant="outlined"
                             type="email"
@@ -57,7 +57,7 @@ function AuthForm() {
                             ariaErrorMessage={props.errors.email}
                             ariaLabel="Email"
                         />
-                        <FormikCustomInput
+                        <FormikInput
                             label="Password"
                             name="auth-password"
                             placeholder="Enter password"
