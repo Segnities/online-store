@@ -48,10 +48,8 @@ export default function CreateDeviceModal(props: CreateDeviceModalProps) {
         <Modal
             isOpen={props.isOpen}
             setIsOpen={props.setIsOpen}
+            modalHeader="Create device"
         >
-            <h3 className="text-xl font-bold text-center text-gray-700">
-                Create device
-            </h3>
             <div className="grid grid-flow-row gap-2">
                 <Formik
                     initialValues={{
