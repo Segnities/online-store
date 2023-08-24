@@ -22,10 +22,8 @@ export default function CreateTypeModal(props: CreateTypeModalProps) {
         <Modal
             isOpen={props.isOpen}
             setIsOpen={props.setIsOpen}
+            modalHeader="Create type"
         >
-            <h3 className="text-xl font-bold text-center text-gray-700">
-                Create type
-            </h3>
             <div className="grid grid-flow-row gap-2">
                 <Formik
                     initialValues={{

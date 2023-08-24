@@ -1,14 +1,17 @@
-import { useContext } from "react";
 import { Form, Formik } from "formik";
+import { useContext } from "react";
+import { nanoid } from "nanoid";
 
 import * as Yup from "yup";
 
 import { Button } from "@mui/material";
 
-import FormikInput from "./FormikInput";
-import Modal from "./UI/Modal";
 import { MobxContext } from "@/store/MobxProvider";
+import FormikInput from "./FormikInput";
 import FormikSelect from "./FormikSelect";
+import Modal from "./UI/Modal";
+
+import type { MUIBasicSelectOption } from "@/types/mui-basic-select";
 
 interface CreateDeviceModalProps {
     isOpen: boolean;
@@ -22,14 +25,31 @@ const createBrandValidationSchema = Yup.object({
 
 export default function CreateDeviceModal(props: CreateDeviceModalProps) {
     const store = useContext(MobxContext);
+
+    const optionArray: MUIBasicSelectOption[] = [
+        {
+            id: nanoid(),
+            title: 'Foo 1',
+            value: 'foo1',
+        },
+        {
+            id: nanoid(),
+            title: 'Foo 2',
+            value: 'foo2',
+        },
+        {
+            id: nanoid(),
+            title: 'Foo 3',
+            value: 'foo3',
+        },
+    ]
+
     return (
         <Modal
             isOpen={props.isOpen}
             setIsOpen={props.setIsOpen}
+            modalHeader="Create device"
         >
-            <h3 className="text-xl font-bold text-center text-gray-700">
-                Create device
-            </h3>
             <div className="grid grid-flow-row gap-2">
                 <Formik
                     initialValues={{
@@ -39,7 +59,7 @@ export default function CreateDeviceModal(props: CreateDeviceModalProps) {
                     onSubmit={(values) => console.log(values)}
                 >
                     {(props) => (
-                        <Form>
+                        <Form className="grid grid-flow-row gap-5">
                             <FormikInput
                                 label="Title"
                                 variant="outlined"
@@ -48,13 +68,13 @@ export default function CreateDeviceModal(props: CreateDeviceModalProps) {
                                 placeholder="Enter brand title"
                                 ariaLabel="Create brand title"
                                 className="w-full"
+                                size="small"
                             />
                             <FormikSelect
-                                name="name"
-                                placeholder=""
-                                variant="filled"
-                                label="lavel"
-                                type="select"
+                                name="select-example"
+                                id="select-id"
+                                label="Select exaple component"
+                                options={optionArray}
                             />
                         </Form>
                     )}

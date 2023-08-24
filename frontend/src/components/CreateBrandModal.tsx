@@ -22,10 +22,9 @@ export default function CreateBrandModal(props: CreateBrandModalProps) {
         <Modal
             isOpen={props.isOpen}
             setIsOpen={props.setIsOpen}
+            modalHeader="Create Brand"
         >
-            <h3 className="text-xl font-bold text-center text-gray-700">
-                Create brand
-            </h3>
+
             <div className="grid grid-flow-row gap-2">
                 <Formik
                     initialValues={{

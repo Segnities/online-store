@@ -1,23 +1,39 @@
 
-import type FormikCustomField from "@/types/formik-custom-field";
 import { useField } from "formik";
+
 import CustomSelect from "./UI/Select";
 import StyledLabel from "./UI/StyledLabel";
 import StyledOption from "./UI/StyledOption";
 
-function FormikSelect(props: FormikCustomField) {
+import type { FormikCustomSelect } from "@/types/formik-custom-select";
+import type { MUIBasicSelectOption } from "@/types/mui-basic-select";
+
+function FormikSelect(props: FormikCustomSelect) {
     const [field] = useField(props);
+
+    const options: MUIBasicSelectOption[] = props?.options;
+    const selectHtmlId: string | undefined = props?.id;
+    const selectHtmlName: string | undefined = props?.name;
+    const labelText: string | undefined = props?.label;
+
     return (
-          <div>
-            <StyledLabel htmlFor="unnamedSelect">
-                Custom select
+        <div>
+            <StyledLabel htmlFor={selectHtmlId}>
+                {labelText}
             </StyledLabel>
-            <CustomSelect defaultValue={10} id="unnamedSelect" name="example-select"> 
-                <StyledOption value={10}>Ten</StyledOption>
-                <StyledOption value={20}>Twenty</StyledOption>
-                <StyledOption value={30}>Thirty</StyledOption>
+            <CustomSelect
+                {...field}
+                id={selectHtmlId}
+                name={selectHtmlName}
+                className="w-full h-15"
+            >
+                {
+                    options.map(option => (
+                        <StyledOption key={option.id} value={option.value}>{option.title}</StyledOption>
+                    ))
+                }
             </CustomSelect>
-          </div>
+        </div>
     );
 }
 

@@ -1,3 +1,5 @@
+'use client';
+
 import type { ReactNode } from "react";
 import { createPortal } from "react-dom";
 
@@ -8,13 +10,15 @@ interface ModalProps {
     isOpen: boolean;
     setIsOpen: (isOpen: boolean) => void;
     children: ReactNode;
+    modalHeader?: string;
 }
 
 export default function Modal(props: ModalProps) {
     const {
         isOpen,
         setIsOpen,
-        children
+        modalHeader,
+        children,
     } = props;
 
     return (
@@ -36,13 +40,14 @@ export default function Modal(props: ModalProps) {
                                     className="cursor-pointer"
                                 />
                             </div>
+                            <h3 className="text-2xl lg:text-3xl my-3 text-center">{modalHeader}</h3>
                             <Divider variant="middle" />
-                            <div className="flex flex-col gap-3">
+                            <div className="flex flex-col gap-3 my-3">
                                 {children}
                             </div>
                         </div>
                     </div>
-                ), document.body)
+                ), window.document.body)
             }
         </>
     );

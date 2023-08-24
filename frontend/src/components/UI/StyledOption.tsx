@@ -3,9 +3,10 @@ import { styled } from "@mui/system";
 import { blue, grey } from "@mui/material/colors";
 
 const StyledOption = styled(Option)(
-    ({ theme }) => `
+  ({ theme }) => `
   list-style: none;
   padding: 8px;
+  margin: 5px 0;
   border-radius: 8px;
   cursor: default;
 
@@ -19,13 +20,8 @@ const StyledOption = styled(Option)(
   }
 
   &.${optionClasses.highlighted} {
-    background-color: ${theme.palette.mode === 'dark' ? grey[800] : grey[100]};
-    color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
-  }
-
-  &.${optionClasses.highlighted}.${optionClasses.selected} {
-    background-color: ${theme.palette.mode === 'dark' ? blue[900] : blue[100]};
-    color: ${theme.palette.mode === 'dark' ? blue[100] : blue[900]};
+    background-color: ${theme.palette.mode === 'dark' ? blue[800] : blue[100]};
+    color: ${theme.palette.mode === 'dark' ? blue[300] : blue[900]};
   }
 
   &.${optionClasses.disabled} {

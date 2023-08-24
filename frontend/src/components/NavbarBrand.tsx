@@ -3,7 +3,7 @@ import Link from "next/link";
 import localFont from "next/font/local";
 
 const bricolageGrotesqueRegularFont = localFont({
-    src: '../fonts/BricolageGrotesque-Regular.ttf',
+    src: '../assets/fonts/BricolageGrotesque-Regular.ttf',
     display: 'swap',
     variable: '--font-bricolage-grotesque-regular'
 });
