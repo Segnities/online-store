@@ -1,3 +1,5 @@
+'use client';
+
 import type { ReactNode } from "react";
 import { createPortal } from "react-dom";
 
@@ -42,7 +44,7 @@ export default function Modal(props: ModalProps) {
                             </div>
                         </div>
                     </div>
-                ), document.body)
+                ), window.document.body)
             }
         </>
     );

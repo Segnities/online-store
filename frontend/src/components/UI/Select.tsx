@@ -1,7 +1,8 @@
-import { forwardRef } from "react";
-import type { ForwardedRef, RefAttributes } from "react";
-import { Select } from "@mui/base/Select";
 import type { SelectProps } from "@mui/base/Select";
+import { Select } from "@mui/base/Select";
+import { connect } from "formik";
+import type { ForwardedRef, RefAttributes } from "react";
+import { forwardRef } from "react";
 import StyledButton from "./StyledButton";
 import StyledListbox from "./StyledListbox";
 import StyledPopper from "./StyledPopper";
@@ -17,10 +18,9 @@ const CustomSelect = forwardRef(function CustomSelect<
         popper: StyledPopper,
         ...props.slots,
     };
-
-    return <Select {...props} ref={ref} slots={slots} />;
+    return  <Select {...props} ref={ref} slots={slots} />;
 }) as <TValue extends {}, Multiple extends boolean>(
     props: SelectProps<TValue, Multiple> & RefAttributes<HTMLButtonElement>,
 ) => JSX.Element;
 
-export default CustomSelect;
+export default connect(CustomSelect);

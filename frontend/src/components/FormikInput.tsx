@@ -17,6 +17,7 @@ function FormikInput(props: FormikCustomField) {
             variant={props.variant}
             aria-errormessage={props.ariaErrorMessage}
             aria-label={props.ariaLabel}
+            size={props.size}
         />
 
     );
