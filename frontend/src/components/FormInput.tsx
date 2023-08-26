@@ -1,17 +1,15 @@
 import { memo } from "react";
 
-import { useField } from "formik";
 
 import TextField from "@mui/material/TextField";
 import FormikCustomField from "@/types/formik-custom-field";
 
-function FormikInput(props: FormikCustomField) {
-    const [field] = useField(props);
+function FormInput(props: FormikCustomField) {
     return (
         <TextField
-            {...field}
-            placeholder={props.placeholder}
+            placeholder={props?.placeholder}
             className={props?.className}
+            name={props.name}
             type={props.type}
             label={props.label}
             variant={props.variant}
@@ -23,4 +21,4 @@ function FormikInput(props: FormikCustomField) {
     );
 }
 
-export default memo(FormikInput);
+export default memo(FormInput);

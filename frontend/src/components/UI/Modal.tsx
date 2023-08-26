@@ -49,7 +49,7 @@ export default function Modal(props: ModalProps) {
                             </div>
                         </div>
                     </div>
-                ), window.document.body)
+                ), document.body)
             }
         </>
     );
