@@ -4,7 +4,7 @@ import { grey } from "@mui/material/colors"
 const StyledLabel = styled('label')(
     ({ theme }) => `
   font-family: IBM Plex Sans, sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   display: block;
   margin-bottom: 4px;
   font-weight: 400;

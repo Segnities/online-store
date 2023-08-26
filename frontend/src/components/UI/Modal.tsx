@@ -40,7 +40,9 @@ export default function Modal(props: ModalProps) {
                                     className="cursor-pointer"
                                 />
                             </div>
-                            <h3 className="text-2xl lg:text-3xl my-3 text-center">{modalHeader}</h3>
+                            {
+                                modalHeader && <h3 className="text-2xl lg:text-3xl my-3 text-center">{modalHeader}</h3>
+                            }
                             <Divider variant="middle" />
                             <div className="flex flex-col gap-3 my-3">
                                 {children}

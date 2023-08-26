@@ -9,6 +9,7 @@ const StyledOption = styled(Option)(
   margin: 5px 0;
   border-radius: 8px;
   cursor: default;
+  cursor: pointer;
 
   &:last-of-type {
     border-bottom: none;

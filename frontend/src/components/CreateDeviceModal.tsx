@@ -25,24 +25,20 @@ const createBrandValidationSchema = Yup.object({
 
 export default function CreateDeviceModal(props: CreateDeviceModalProps) {
     const store = useContext(MobxContext);
-
-    const optionArray: MUIBasicSelectOption[] = [
-        {
-            id: nanoid(),
-            title: 'Foo 1',
-            value: 'foo1',
-        },
-        {
-            id: nanoid(),
-            title: 'Foo 2',
-            value: 'foo2',
-        },
-        {
-            id: nanoid(),
-            title: 'Foo 3',
-            value: 'foo3',
-        },
-    ]
+    const types:MUIBasicSelectOption[] | undefined = store?.product.types.map(type => { 
+        return {
+            id: nanoid() + type.id.toString(),
+            title: type.name,
+            value: type.name
+        }
+    });
+    const brands:MUIBasicSelectOption[] | undefined = store?.product.brands.map(brand => {
+        return {
+            id: nanoid() + brand.id.toString(),
+            title: brand.name,
+            value: brand.name
+        }
+    });
 
     return (
         <Modal
@@ -71,10 +67,16 @@ export default function CreateDeviceModal(props: CreateDeviceModalProps) {
                                 size="small"
                             />
                             <FormikSelect
-                                name="select-example"
-                                id="select-id"
-                                label="Select exaple component"
-                                options={optionArray}
+                                name="select-types"
+                                id="select-type"
+                                label="Select type"
+                                options={types}
+                            />
+                            <FormikSelect
+                                name="select-brands"
+                                id="select-brand"
+                                label="Select brand"
+                                options={brands}
                             />
                         </Form>
                     )}
