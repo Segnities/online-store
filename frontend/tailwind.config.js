@@ -13,6 +13,7 @@ module.exports = {
       fontFamily: {
         bricolageGrotesqueRegularFont: ['var(--font-bricolage-grotesque-regular)']
       }
+      
     },
   },
   plugins: [],

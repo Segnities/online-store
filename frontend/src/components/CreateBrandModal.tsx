@@ -18,17 +18,7 @@ export default function CreateBrandModal(props: CreateBrandModalProps) {
         >
 
             <div className="grid grid-flow-row gap-2">
-                <form>
-                    <FormInput
-                        label="Title"
-                        variant="outlined"
-                        type="text"
-                        name="brand-title"
-                        placeholder="Enter brand title"
-                        ariaLabel="Create brand title"
-                        className="w-full"
-                    />
-                </form>
+                
             </div>
             <div className="flex flex-row justify-between">
                 <Button

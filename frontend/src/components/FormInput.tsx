@@ -16,6 +16,7 @@ function FormInput(props: MUIBasicInput) {
             aria-errormessage={props.ariaErrorMessage}
             aria-label={props.ariaLabel}
             size={props.size}
+            multiline={props?.multiline}
         />
 
     );

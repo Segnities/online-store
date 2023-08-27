@@ -8,8 +8,9 @@ type MUIBasicInput = {
     label: string,
     ariaErrorMessage?: string,
     ariaLabel?: string,
-    className?: string
-    size?: "small" | "medium"
+    className?: string,
+    size?: "small" | "medium",
+    multiline?: boolean
 }
 
 export default MUIBasicInput;

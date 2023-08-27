@@ -4,6 +4,7 @@ import { Button } from "@mui/material";
 
 import FormInput from "./FormInput";
 import Modal from "./UI/Modal";
+import CreateTypeForm from "./CreateTypeForm";
 
 interface CreateTypeModalProps {
     isOpen: boolean;
@@ -19,17 +20,7 @@ export default function CreateTypeModal(props: CreateTypeModalProps) {
             modalHeader="Create type"
         >
             <div className="grid grid-flow-row gap-2">
-                <form>
-                    <FormInput
-                        label="Title"
-                        variant="outlined"
-                        type="text"
-                        name="type-title"
-                        placeholder="Enter type title"
-                        ariaLabel="Create type title"
-                        className="w-full"
-                    />
-                </form>
+                <CreateTypeForm/>
             </div>
             <div className="flex flex-row justify-between">
                 <Button

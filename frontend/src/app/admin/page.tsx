@@ -1,51 +1,46 @@
 'use client';
 
 import { useState } from "react";
+import type { SyntheticEvent } from "react";
 
-import CreateBrandModal from "@/components/CreateBrandModal";
-import CreateDeviceModal from "@/components/CreateDeviceModal";
-import CreateTypeModal from "@/components/CreateTypeModal";
-import { Button } from "@mui/material";
+import Tab from "@mui/material/Tab";
+
+import TabList from "@mui/lab/TabList";
+import TabContext from "@mui/lab/TabContext";
+import TabPanel from "@mui/lab/TabPanel";
+import CreateTypeForm from "@/components/CreateTypeForm";
+import CreateBrandForm from "@/components/CreateBrandForm";
+import CreateDeviceForm from "@/components/CreateDeviceForm";
+
 
 function Admin() {
-    const [openCreateBrandModal, setOpenCreateBrandModal] = useState<boolean>(false);
-    const [openCreateTypeModal, setOpenCreateTypeModal] = useState<boolean>(false);
-    const [openCreateDeviceModal, setOpenCreateDeviceModal] = useState<boolean>(false);
+    const [tab, setTab] = useState<string>("1");
+
+    const handleTabChange = (e: SyntheticEvent, newTab: string) => {
+        setTab(newTab);
+    }
 
     return (
         <div className="grid grid-flow-row p-8">
-            <div className="grid grid-flow-col gap-2">
-                <Button
-                    variant="outlined"
-                    onClick={() => setOpenCreateBrandModal(true)}
-                >
-                    Add brand
-                </Button>
-                <Button
-                    variant="outlined"
-                    onClick={() => setOpenCreateTypeModal(true)}
-                >
-                    Add category
-                </Button>
-                <Button
-                    variant="outlined"
-                    onClick={() => setOpenCreateDeviceModal(true)}
-                >
-                    Add device
-                </Button>
+            <div className="grid grid-flow-row gap-2">
+                <TabContext value={tab}>
+                    <TabList onChange={handleTabChange} aria-label="Create tabs">
+                        <Tab label="Create type" value="1" />
+                        <Tab label="Create brand" value="2" />
+                        <Tab label="Create device" value="3" />
+                    </TabList>
+                    <TabPanel value="1">
+                        <CreateTypeForm/>
+                    </TabPanel>
+                    <TabPanel value="2">
+                        <CreateBrandForm/>
+                    </TabPanel>
+                    <TabPanel value="3">
+                        <CreateDeviceForm/>
+                    </TabPanel>
+                </TabContext>
             </div>
-            <CreateBrandModal
-                isOpen={openCreateBrandModal}
-                setIsOpen={setOpenCreateBrandModal}
-            />
-            <CreateTypeModal
-                isOpen={openCreateTypeModal}
-                setIsOpen={setOpenCreateTypeModal}
-            />
-            <CreateDeviceModal
-                isOpen={openCreateDeviceModal}
-                setIsOpen={setOpenCreateDeviceModal}
-            />
+
         </div>
     );
 }
