@@ -34,14 +34,14 @@ function Admin() {
                     Add device
                 </Button>
             </div>
-            {/*   <CreateBrandModal
+            <CreateBrandModal
                 isOpen={openCreateBrandModal}
                 setIsOpen={setOpenCreateBrandModal}
             />
             <CreateTypeModal
                 isOpen={openCreateTypeModal}
                 setIsOpen={setOpenCreateTypeModal}
-            /> */}
+            />
             <CreateDeviceModal
                 isOpen={openCreateDeviceModal}
                 setIsOpen={setOpenCreateDeviceModal}

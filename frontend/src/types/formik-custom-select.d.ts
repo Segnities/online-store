@@ -6,6 +6,7 @@ export type BasicSelectProps = {
    label: string,
    id: string,
    name: string,
+   className?: string;
    options: MUIBasicSelectOption[] | undefined,
    ariaLabel?: string;
    ariaErrorMessage?: string;

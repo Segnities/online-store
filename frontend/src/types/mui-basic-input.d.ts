@@ -3,7 +3,7 @@ import type { TextFieldVariants } from "@mui/material"
 type MUIBasicInput = {
     placeholder?: string,
     type: string,
-    name: string?,
+    name?: string,
     variant: TextFieldVariants | undefined,
     label: string,
     ariaErrorMessage?: string,

@@ -2,14 +2,14 @@ import { memo } from "react";
 
 
 import TextField from "@mui/material/TextField";
-import FormikCustomField from "@/types/formik-custom-field";
+import type MUIBasicInput from "@/types/mui-basic-input";
 
-function FormInput(props: FormikCustomField) {
+function FormInput(props: MUIBasicInput) {
     return (
         <TextField
             placeholder={props?.placeholder}
             className={props?.className}
-            name={props.name}
+            name={props?.name}
             type={props.type}
             label={props.label}
             variant={props.variant}
