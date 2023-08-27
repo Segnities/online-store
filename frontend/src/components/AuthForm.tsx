@@ -1,13 +1,10 @@
 
 import { memo } from "react";
 
-import type { FormikProps } from "formik";
-import { Form, Formik } from "formik";
-
 import Card from "@mui/material/Card";
 
 import * as Yup from "yup";
-import FormikInput from "./FormikInput";
+import FormInput from "./FormInput";
 
 import AuthButton from "./AuthButton";
 import AuthFormMessage from "./AuthFormMessage";
@@ -34,44 +31,28 @@ function AuthForm() {
             className="w-4/5 md:w-2/5 flex flex-col gap-5  border-gray-200 rounded-lg p-8 lg:p-14"
         >
             <AuthHeader />
-            <Formik
-                initialValues={{
-                    email: "",
-                    password: ""
-                }}
-                onSubmit={(values) => {
-                    console.log(values);
-                }}
-                validationSchema={authFormValidationSchema}
+            <form
+                className="w-full grid grid-rows-2 grid-col-1 gap-5"
             >
-                {(props: FormikProps<AuthFormValues>) => (
-                    <Form
-                        className="w-full grid grid-rows-2 grid-col-1 gap-5"
-                    >
-                        <FormikInput
-                            label="Email"
-                            variant="outlined"
-                            type="email"
-                            name="auth-email"
-                            placeholder="Enter email"
-                            ariaErrorMessage={props.errors.email}
-                            ariaLabel="Email"
-                        />
-                        <FormikInput
-                            label="Password"
-                            name="auth-password"
-                            placeholder="Enter password"
-                            variant="outlined"
-                            type="password"
-                            ariaErrorMessage={props.errors.password}
-                            ariaLabel="Password"
-                        />
-                        <AuthButton />
-                        <AuthFormMessage />
-                    </Form>
-                )}
-
-            </Formik>
+                <FormInput
+                    label="Email"
+                    variant="outlined"
+                    type="email"
+                    name="auth-email"
+                    placeholder="Enter email"
+                    ariaLabel="Email"
+                />
+                <FormInput
+                    label="Password"
+                    name="auth-password"
+                    placeholder="Enter password"
+                    variant="outlined"
+                    type="password"
+                    ariaLabel="Password"
+                />
+                <AuthButton />
+                <AuthFormMessage />
+            </form>
         </Card>
     );
 }

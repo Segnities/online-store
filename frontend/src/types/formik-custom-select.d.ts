@@ -2,11 +2,12 @@ import type { FormikHookConfig } from "formik";
 import type { MUIBasicSelectOption } from "./mui-basic-select";
 import type MUIBasicInput from "./mui-basic-input";
 
-type BasicSelectProps = {
+export type BasicSelectProps = {
    label: string,
    id: string,
    name: string,
-   options: MUIBasicSelectOption[],
+   className?: string;
+   options: MUIBasicSelectOption[] | undefined,
    ariaLabel?: string;
    ariaErrorMessage?: string;
 };

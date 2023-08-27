@@ -1,26 +1,25 @@
 import { memo } from "react";
 
-import { useField } from "formik";
 
 import TextField from "@mui/material/TextField";
-import FormikCustomField from "@/types/formik-custom-field";
+import type MUIBasicInput from "@/types/mui-basic-input";
 
-function FormikInput(props: FormikCustomField) {
-    const [field] = useField(props);
+function FormInput(props: MUIBasicInput) {
     return (
         <TextField
-            {...field}
-            placeholder={props.placeholder}
+            placeholder={props?.placeholder}
             className={props?.className}
+            name={props?.name}
             type={props.type}
             label={props.label}
             variant={props.variant}
             aria-errormessage={props.ariaErrorMessage}
             aria-label={props.ariaLabel}
             size={props.size}
+            multiline={props?.multiline}
         />
 
     );
 }
 
-export default memo(FormikInput);
+export default memo(FormInput);

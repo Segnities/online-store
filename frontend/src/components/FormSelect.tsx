@@ -1,17 +1,14 @@
 
-import { useField } from "formik";
 
+import type { BasicSelectProps } from "@/types/formik-custom-select";
 import CustomSelect from "./UI/Select";
 import StyledLabel from "./UI/StyledLabel";
 import StyledOption from "./UI/StyledOption";
 
-import type { FormikCustomSelect } from "@/types/formik-custom-select";
 import type { MUIBasicSelectOption } from "@/types/mui-basic-select";
 
-function FormikSelect(props: FormikCustomSelect) {
-    const [field] = useField(props);
-
-    const options: MUIBasicSelectOption[] = props?.options;
+function FormSelect(props: BasicSelectProps) {
+    const options: MUIBasicSelectOption[] | undefined = props?.options;
     const selectHtmlId: string | undefined = props?.id;
     const selectHtmlName: string | undefined = props?.name;
     const labelText: string | undefined = props?.label;
@@ -22,13 +19,10 @@ function FormikSelect(props: FormikCustomSelect) {
                 {labelText}
             </StyledLabel>
             <CustomSelect
-                {...field}
-                id={selectHtmlId}
                 name={selectHtmlName}
-                className="w-full h-15"
             >
                 {
-                    options.map(option => (
+                    options?.map(option => (
                         <StyledOption key={option.id} value={option.value}>{option.title}</StyledOption>
                     ))
                 }
@@ -37,4 +31,4 @@ function FormikSelect(props: FormikCustomSelect) {
     );
 }
 
-export default FormikSelect;
+export default FormSelect;
