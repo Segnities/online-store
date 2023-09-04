@@ -1,30 +1,46 @@
-
-import { memo } from "react";
+import type { FormEvent } from "react";
+import { memo, useState } from "react";
 
 import Card from "@mui/material/Card";
+import TextField from "@mui/material/TextField";
 
-import * as Yup from "yup";
-import FormInput from "./FormInput";
-
+import { login, registration } from "@/http/userAPI";
 import AuthButton from "./AuthButton";
 import AuthFormMessage from "./AuthFormMessage";
 import AuthHeader from "./AuthHeader";
 
-export interface AuthFormValues {
-    email: string;
-    password: string;
+interface AuthFormProps {
+    pathname:string;
 }
 
-const authFormValidationSchema = Yup.object({
-    email: Yup.string()
-        .email("Invalid email address")
-        .required("Email is required"),
-    password: Yup.string()
-        .min(8, "Password must be at least 8 characters")
-        .required("Password is required")
-});
+function AuthForm(props: AuthFormProps) {
+    const {
+        pathname
+    } = props;
+    const [email, setEmail] = useState<string>('')
+    const [password, setPassword] = useState<string>('');
+    const isLoginPage = pathname === '/login';
 
-function AuthForm() {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        try {
+            if (isLoginPage) {
+                const response = await login(email, password);
+                console.log(response);
+                setEmail('');
+                setPassword('');
+                
+            } else  {
+                const response = await registration(email, password);
+                console.log(response);
+                setEmail('');
+                setPassword('');
+            }
+        } catch(e) {
+            console.log(e);
+        }
+    }   
+    
     return (
         <Card
             variant="outlined"
@@ -33,22 +49,27 @@ function AuthForm() {
             <AuthHeader />
             <form
                 className="w-full grid grid-rows-2 grid-col-1 gap-5"
+                onSubmit={handleSubmit}
             >
-                <FormInput
+                <TextField
                     label="Email"
                     variant="outlined"
                     type="email"
-                    name="auth-email"
+                    name="email"
                     placeholder="Enter email"
-                    ariaLabel="Email"
+                    aria-label="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                 />
-                <FormInput
+                <TextField
                     label="Password"
-                    name="auth-password"
+                    name="password"
                     placeholder="Enter password"
                     variant="outlined"
                     type="password"
-                    ariaLabel="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    aria-label="Password"
                 />
                 <AuthButton />
                 <AuthFormMessage />

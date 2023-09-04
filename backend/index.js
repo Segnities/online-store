@@ -21,9 +21,6 @@ app.use(express.static(path.resolve(__dirname, 'static')));
 app.use('/api', mainRouter);
 app.use(errorMiddleware);
 
-app.get('/', (req, res) => {
-    res.status(200).json({ message: 'Working' })
-})
 
 const db = require('./db.js');
 
@@ -37,7 +34,7 @@ const start = async () => {
             console.log('Server is running on port: ', PORT);
         });
     } catch (error) {
-
+        console.log(error);
     }
 }
 

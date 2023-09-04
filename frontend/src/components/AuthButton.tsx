@@ -9,6 +9,7 @@ import Button from "@mui/material/Button";
 function AuthButton() {
     const pathname = usePathname();
     const isLoginPage = pathname === "/login";
+    
     return (
         <Button
             variant="contained"
