@@ -15,21 +15,25 @@ const generateJwtToken = (id, email, role) => {
 
 class UserController {
     async registration(req, res, next) {
-        const { email, password, role } = req.body;
-        if (!email || !password) {
-            return next(ApiError.badRequest('Incorrect email or password'));
-        }
-        const user = await User.findOne({ where: { email } });
+        try {
+            const { email, password, role } = req.body;
+            if (!email || !password) {
+                return next(ApiError.badRequest('Incorrect email or password'));
+            }
+            const user = await User.findOne({ where: { email } });
 
-        if (user) {
-            return next(ApiError.badRequest('User already exists'));
-        }
-        const hashPassword = await bcrypt.hash(password, 5);
-        const newUser = await User.create({ email, role, password: hashPassword, role });
-        const basket = await Basket.create({ userId: newUser.id });
+            if (user) {
+                return next(ApiError.badRequest('User already exists'));
+            }
+            const hashPassword = await bcrypt.hash(password, 5);
+            const newUser = await User.create({ email, role, password: hashPassword, role });
+            const basket = await Basket.create({ userId: newUser.id });
 
-        const jwt = generateJwtToken(newUser.id, newUser.email, newUser.role);
-        return res.json({ jwt });
+            const jwt = generateJwtToken(newUser.id, newUser.email, newUser.role);
+            return res.json({ jwt });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     async auth(req, res, next) {
@@ -38,19 +42,23 @@ class UserController {
     }
 
     async login(req, res, next) {
-        const { email, password } = req.body;
-        const user = await User.findOne({ where: { email } });
-        if (!user) {
-            return next(ApiError.internal('User not found'));
-        }
-        const comparePassword = bcrypt.compareSync(password, user.password);
+        try {
+            const { email, password } = req.body;
+            const user = await User.findOne({ where: { email } });
+            if (!user) {
+                return next(ApiError.internal('User not found'));
+            }
+            const comparePassword = bcrypt.compareSync(password, user.password);
 
-        if (!comparePassword) {
-            return next(ApiError.internal('Incorrect password'));
-        }
-        const jwt = generateJwtToken(user.id, user.email, user.role);
+            if (!comparePassword) {
+                return next(ApiError.internal('Incorrect password'));
+            }
+            const jwt = generateJwtToken(user.id, user.email, user.role);
 
-        return res.json({ jwt });
+            return res.json({ jwt });
+        } catch (e) {
+            console.log(e);
+        }
     }
 }
 
