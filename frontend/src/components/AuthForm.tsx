@@ -1,5 +1,8 @@
+'use client';
+
 import type { FormEvent } from "react";
-import { memo, useState } from "react";
+import { memo, useContext, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import Card from "@mui/material/Card";
 import TextField from "@mui/material/TextField";
@@ -8,9 +11,12 @@ import { login, registration } from "@/http/userAPI";
 import AuthButton from "./AuthButton";
 import AuthFormMessage from "./AuthFormMessage";
 import AuthHeader from "./AuthHeader";
+import { observer } from "mobx-react-lite";
+import { MobxContext } from "@/store/MobxProvider";
+import type { UserData } from "@/store/UserStore";
 
 interface AuthFormProps {
-    pathname:string;
+    pathname: string;
 }
 
 function AuthForm(props: AuthFormProps) {
@@ -19,28 +25,37 @@ function AuthForm(props: AuthFormProps) {
     } = props;
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('');
+    const store = useContext(MobxContext);
     const isLoginPage = pathname === '/login';
+
+    const router = useRouter();
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        let userData;
         try {
             if (isLoginPage) {
-                const response = await login(email, password);
+                const response: UserData = await login(email, password);
+                userData = response;
                 console.log(response);
                 setEmail('');
                 setPassword('');
-                
-            } else  {
-                const response = await registration(email, password);
+            } else {
+                const response: UserData = await registration(email, password);
+                userData = response;
                 console.log(response);
+
                 setEmail('');
                 setPassword('');
             }
-        } catch(e) {
+            store?.user.setUser(userData);
+            store?.user.setIsAuth(true);
+            router.push('/');
+        } catch (e) {
             console.log(e);
         }
-    }   
-    
+    }
+
     return (
         <Card
             variant="outlined"
@@ -78,4 +93,4 @@ function AuthForm(props: AuthFormProps) {
     );
 }
 
-export default memo(AuthForm);    
+export default memo(observer(AuthForm));    

@@ -79,7 +79,7 @@ function CreateDeviceForm() {
             options={brands}
             className="w-full"
          />
-         <Button variant="outlined" onClick={handleAddProductInfo}>
+         <Button variant="text" onClick={handleAddProductInfo}>
             Add additional data
          </Button>
          {
