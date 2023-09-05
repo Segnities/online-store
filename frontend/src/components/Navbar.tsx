@@ -6,7 +6,7 @@ import { MobxContext } from "@/store/MobxProvider";
 
 import NavbarBrand from "./NavbarBrand";
 import UserNavbarPanel from "./UserNavbarPanel";
-import AdminNavbarPanel from "./AdminNavbarPanel";
+import AuthNavbarPanel from "./AuthNavbarPanel";
 import { observer } from "mobx-react-lite";
 
 function Navbar() {
@@ -16,7 +16,7 @@ function Navbar() {
         <nav className="flex px-4 md:px-20 py-6 justify-between items-center w-full h-22 bg-slate-700">
             <NavbarBrand />
             {
-                isAuth ? <AdminNavbarPanel /> : <UserNavbarPanel />
+                isAuth ? <AuthNavbarPanel /> : <UserNavbarPanel />
             }
         </nav>
     )

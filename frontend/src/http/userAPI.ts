@@ -2,8 +2,8 @@ import { $authHost, $defaultHost } from "./index";
 import jwt_decode from "jwt-decode";
 import type { UserData } from "@/store/UserStore";
 
-export const registration = async (email: string, password: string):Promise<UserData> => {
-   const { data } = await $authHost.post('api/user/registration', {
+export const registration = async (email: string, password: string): Promise<UserData> => {
+   const { data } = await $defaultHost.post('api/user/registration', {
       email,
       password,
       role: 'ADMIN'
@@ -12,8 +12,8 @@ export const registration = async (email: string, password: string):Promise<User
    return jwt_decode(data.jwt);
 }
 
-export const login = async (email: string, password: string):Promise<UserData> => {
-   const { data } = await $authHost.post('api/user/login', {
+export const login = async (email: string, password: string): Promise<UserData> => {
+   const { data } = await $defaultHost.post('api/user/login', {
       email,
       password,
    });
@@ -22,5 +22,7 @@ export const login = async (email: string, password: string):Promise<UserData> =
 }
 
 export const check = async () => {
-   const response = await $defaultHost.post('api/user/auth')
+   const { data } = await $authHost.get('api/user/auth');
+   return data;
+
 }
