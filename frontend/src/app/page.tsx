@@ -6,37 +6,23 @@ import TypeBar from "@/components/TypeBar";
 import Grid from "@mui/material/Grid";
 import { getAllTypes } from "@/http/typesAPI";
 import type { Types } from "@/types/types-api";
-
-interface StaticProps {
-  types: Types[];
-}
+import { Brands } from "@/types/brands-api";
+import { getAllBrands } from "@/http/brandsAPI";
 
 async function getData() {
   const types: Types[] = await getAllTypes();
+  const brands: Brands[] = await getAllBrands();
 
-  if (!types) {
+  const items = [types, brands];
+
+  if (items.some(item => !item)) {
     throw new Error('Failed to fetch data');
   }
-  return { types };
+  return { types, brands };
 }
 
-/* export const getStaticProps: GetStaticProps<StaticProps> = async () => {
-  const types:Types[] = await getAllTypes();
-  return {
-    props: { 
-      types: [
-      {
-        id: 1,
-        name: 'TVs',
-        createdAt: new Date().toLocaleDateString(),
-        updatedAt: ''
-      }
-    ] }
-  }
-} */
-
 export default async function Home() {
-  const { types } =  await getData();
+  const { types, brands } =  await getData();
 
   return (
     <main>
@@ -52,7 +38,7 @@ export default async function Home() {
          <TypeBar types={types} />
         </Grid>
         <Grid item xs={12} md={9} spacing={3}>
-          <BrandBar />
+          <BrandBar brands={brands} />
           <DeviceList />
         </Grid>
       </Grid>

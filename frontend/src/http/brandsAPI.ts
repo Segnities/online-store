@@ -1,22 +1,22 @@
 import { $defaultHost, $authHost } from "./index";
 
 
-export const createType = async () => {
-   const { data } = await $authHost.post('api/type');
+export const createBrand = async () => {
+   const { data } = await $authHost.post('api/brand');
    return data;
 }
 
-export const getAllTypes = async () => {
+export const getAllBrands = async () => {
    try {
-      const { data } = await $defaultHost.get('api/type');
+      const { data } = await $defaultHost.get('api/brand');
       return data;
    } catch (e) {
       console.log(e);
    }
 }
 
-export const updateType = async (typeId:number) => {
-   const apiUrl = 'api/type/' + typeId;
+export const updateBrand = async (brandId:number) => {
+   const apiUrl = 'api/brand/' + brandId;
 
    try {
       const { data } = await $authHost.put(apiUrl);
@@ -26,8 +26,8 @@ export const updateType = async (typeId:number) => {
    }
 }
 
-export const deleteType = async (typeId:number) => {
-   const apiUrl = 'api/type/' + typeId;
+export const deleteBrand = async (brandId:number) => {
+   const apiUrl = 'api/brand/' + brandId;
 
    try {
       const { data } = await $authHost.delete(apiUrl);
