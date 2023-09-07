@@ -31,16 +31,15 @@ function AuthNavbarPanel() {
                             Admin panel
                         </Button>
                     </Link>
-                )  : null
+                ) : null
             }
-
-                <Button
-                    variant='outlined'
-                    className="text-white border-white hover:text-sky-500"
-                    onClick={logout}
-                >
-                    Logout
-                </Button>
+            <Button
+                variant='outlined'
+                className="text-white border-white hover:text-sky-500"
+                onClick={logout}
+            >
+                Logout
+            </Button>
         </Stack>
     );
 }

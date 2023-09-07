@@ -1,18 +1,23 @@
 'use client';
 
 import { observer } from "mobx-react-lite";
-import { memo, useContext } from "react";
+import { memo, useContext, useEffect } from "react";
 
 import { MobxContext } from "@/store/MobxProvider";
 
+import { ProductType } from "@/types/product-types";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import Divider from "@mui/material/Divider";
-import { ProductType } from "@/types/product-types";
 
-function TypeBar() {
+import type { Types } from "@/types/types-api";
+
+interface TypeBarProps {
+    types: Types[];
+}
+
+function TypeBar(props: TypeBarProps) {
     const store = useContext(MobxContext);
-    const types = store?.product?.types;
+    const { types } = props;
     const selectedType = store?.product?.selectedType;
 
     const handleTypeSelect = (type: ProductType) => {
@@ -22,6 +27,11 @@ function TypeBar() {
             store?.product.setSelectedType(type);
         }
     }
+    
+    useEffect(() => {
+        console.log(types);
+        store?.product?.setTypes(types);
+    }, []);
 
     return (
         <section className="bg-white p-2">
