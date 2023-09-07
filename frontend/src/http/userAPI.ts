@@ -21,8 +21,8 @@ export const login = async (email: string, password: string): Promise<UserData> 
    return jwt_decode(data.jwt);
 }
 
-export const check = async () => {
+export const check = async ():Promise<UserData> => {
    const { data } = await $authHost.get('api/user/auth');
-   return data;
+   return jwt_decode(data);
 
 }
