@@ -1,21 +1,31 @@
 'use client';
 
-import { memo, useContext } from "react";
+import { memo, useContext, useEffect } from "react";
 
 import { MobxContext } from "@/store/MobxProvider";
 
+import type { PaginationDevicesList } from "@/types/product-devices";
 import { observer } from "mobx-react-lite";
 import DeviceItem from "./DeviceItem";
+interface DeviceListProps {
+    devices: PaginationDevicesList;
+}
 
-function DeviceList() {
+function DeviceList(props: DeviceListProps) {
     const store = useContext(MobxContext);
-    const devices = store?.product?.devices;
+    const { devices } = props;
+    //const testDevices = store?.product?.devices;
+    console.log(devices);
+
+    useEffect(() => {
+        store?.product.setDevices(devices.rows);
+    }, []);
 
     return (
         <section>
             <div className="flex flex-row flex-wrap justify-center lg:justify-stretch gap-4 mt-4 mb-8">
                 {
-                    devices?.map((device) => {
+                    devices.rows?.map((device) => {
                         return (
                             <DeviceItem key={device.id} product={device} />
                         )

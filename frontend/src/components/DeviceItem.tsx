@@ -1,11 +1,11 @@
 import { useRouter } from "next/navigation";
 
-import { ProductDevices } from "@/types/product-devices";
 import { Star } from "@mui/icons-material";
 import { Card, CardActionArea, CardActions, CardContent, Divider } from "@mui/material";
 
 import useClientSide from "@/hooks/useClientSide";
 
+import type { ProductDevices } from "@/types/product-devices";
 import DeviceItemImage from "./DeviceItemImage";
 
 interface DeviceItemProps {

@@ -38,8 +38,8 @@ class UserController {
 
     async auth(req, res, next) {
         try {
-            const token = generateJwtToken(req.user.id, req.user.email, req.user.role);
-            return res.json({ token });
+            const jwt = generateJwtToken(req.user.id, req.user.email, req.user.role);
+            return res.json({ jwt });
         } catch (e) {
             console.log(e);
         }
