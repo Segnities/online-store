@@ -1,24 +1,18 @@
 'use client';
-
-import Image from "next/image";
-
 interface DeviceItemImageProps {
     name: string;
     href: string;
 }
 
 export default function DeviceItemImage({ name, href }: DeviceItemImageProps) {
+    console.log(process.env.api + href);
+    
     return (
-        <Image
-            src={href}
-            width={200}
-            height={200}
+        <img
+            src={process.env.api + href}
             className="w-full"
-            layout="responsive"
             alt={name}
-            objectFit="contain"
             loading="lazy"
-            loader={() => href}
             onDragStart={(e) => e.preventDefault()}
         />
     )

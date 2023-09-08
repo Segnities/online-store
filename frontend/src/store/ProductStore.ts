@@ -24,6 +24,8 @@ export default class ProductStore {
                 img: `https://wallpapers.com/images/hd/cat-with-shades-cool-picture-lkenou4wsqrbib37.jpg`,
                 createdAt: new Date().toISOString(),
                 updatedAt: new Date().toISOString(),
+                typeId: Math.floor(Math.random() * 7),
+                brandId: Math.floor(Math.random() * 7),
             });
         }
         return generatedDevices;

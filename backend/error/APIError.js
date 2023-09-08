@@ -9,6 +9,10 @@ class ApiError extends Error {
         return new ApiError(404, message);
     }
 
+    static unauthorizedRequest(message) {
+        return new ApiError(401, message);
+    }
+
     static internalRequest(message) {
         return new ApiError(500, message);
     }
