@@ -5,8 +5,6 @@ interface DeviceItemImageProps {
 }
 
 export default function DeviceItemImage({ name, href }: DeviceItemImageProps) {
-    console.log(process.env.api + href);
-    
     return (
         <img
             src={process.env.api + href}

@@ -9,7 +9,7 @@ export const createDevice = async (device: Device) => {
    return data;
 }
 
-export const getAllDevices = async (typeId: NullableNumber, brandId: NullableNumber, page: number, limit: 5) => {
+export const getAllDevices = async (typeId: NullableNumber, brandId: NullableNumber, page: number, limit: number) => {
    try {
       const { data } = await $defaultHost.get('api/device', {
          params: {

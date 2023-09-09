@@ -12,18 +12,8 @@ import type { UserData } from "@/store/UserStore";
 const ObserveredLayout = observer(({ children }: { children: React.ReactNode }) => {
    const store = useContext(MobxContext);
    const user = store?.user;
-   const [loading, setLoading] = useState<boolean>(true);
+   const [loading, setLoading] = useState<boolean>(false);
 
-   useEffect(() => {
-      check().then((usr_data:UserData) => {
-         if (usr_data) {
-            user?.setIsAuth(true);
-            user?.setUser(usr_data);
-         } else {
-            user?.setIsAuth(false);
-         }
-      }).finally(() => setLoading(false));
-   }, []);
 
    if (loading) {
       return (

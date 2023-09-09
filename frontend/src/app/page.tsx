@@ -14,7 +14,7 @@ import type { Types } from "@/types/types-api";
 async function getData() {
   const types: Types[] = await getAllTypes();
   const brands: Brands[] = await getAllBrands();
-  const devices: PaginationDevicesList = await getAllDevices(null, null, 1, 5);
+  const devices: PaginationDevicesList = await getAllDevices(null, null, 1, 2);
 
   const items = [types, brands, devices];
 
@@ -42,7 +42,7 @@ export default async function Home() {
         </Grid>
         <Grid item xs={12} md={9} spacing={3}>
           <BrandBar brands={brands} />
-          <DeviceList devices={devices}/>
+          <DeviceList initialDevices={devices}/>
         </Grid>
       </Grid>
     </main >
