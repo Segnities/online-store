@@ -7,6 +7,9 @@ import useClientSide from "@/hooks/useClientSide";
 
 import type { ProductDevices } from "@/types/product-devices";
 import DeviceItemImage from "./DeviceItemImage";
+import { useContext } from "react";
+
+import { MobxContext } from "@/store/MobxProvider";
 
 interface DeviceItemProps {
     product: ProductDevices;
@@ -14,6 +17,8 @@ interface DeviceItemProps {
 
 function DeviceItem(props: DeviceItemProps) {
     const device = props.product;
+    const store = useContext(MobxContext);
+    const deviceBrand = store?.product.brands.find(brand => brand.id === device.brandId);
     const router = useRouter();
     const clientSide = useClientSide();
 
@@ -25,7 +30,7 @@ function DeviceItem(props: DeviceItemProps) {
             <CardActionArea>
                 <DeviceItemImage name={device.name} href={device.img} />
                 <CardContent>
-                    <h4>Brand</h4>
+                    <h4>{deviceBrand?.name}</h4>
                 </CardContent>
                 <Divider />
                 <CardActions className="flex justify-between items-center p-5">

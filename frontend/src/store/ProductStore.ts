@@ -12,24 +12,10 @@ export default class ProductStore {
     private _selectedType: ProductType | null = null;
     private _selectedBrand: ProductBrand | null = null;
 
-    generateDevices() {
-        const generatedDevices: ProductDevices[] = [];
+    private _page: number;
+    private _totalCount: number;
+    private _limit: number;
 
-        for (let i = 1; i <= 100; i++) {
-            generatedDevices.push({
-                id: i,
-                name: `Product ${i}`,
-                price: 5000,
-                rating: Math.floor(Math.random() * 6),
-                img: `https://wallpapers.com/images/hd/cat-with-shades-cool-picture-lkenou4wsqrbib37.jpg`,
-                createdAt: new Date().toISOString(),
-                updatedAt: new Date().toISOString(),
-                typeId: Math.floor(Math.random() * 7),
-                brandId: Math.floor(Math.random() * 7),
-            });
-        }
-        return generatedDevices;
-    }
 
     constructor() {
         this._types = [
@@ -53,8 +39,20 @@ export default class ProductStore {
             { id: 12, name: 'Acer' },
             { id: 13, name: 'Dell' },
         ];
-        this._devices = this.generateDevices();
+        this._devices = [];
+        this._page = 1;
+        this._totalCount = 0;
+        this._limit = 3;
         makeAutoObservable(this);
+    }
+
+
+    public setPage(page: number) {
+        this._page = page;
+    }
+
+    public setTotalCount(count: number) {
+        this._totalCount = count;
     }
 
     public setTypes(types: ProductType[]) {
@@ -66,10 +64,10 @@ export default class ProductStore {
 
     public getProductById(productId: number) {
         for (let device of this._devices) {
-            if(productId === device.id) {
+            if (productId === device.id) {
                 return device;
             }
-        } 
+        }
     }
 
     public getProductDescription(productId: number) {
@@ -77,18 +75,18 @@ export default class ProductStore {
             {
                 id: 1,
                 title: "Memory",
-                description: "5 GB" 
+                description: "5 GB"
             },
             {
                 id: 2,
                 title: "Camera",
-                description: "12 MgPx" 
+                description: "12 MgPx"
             },
             {
                 id: 3,
                 title: "Battery",
                 description: "3000 mAh",
-            }, 
+            },
             {
                 id: 4,
                 title: "OS",
@@ -129,5 +127,17 @@ export default class ProductStore {
 
     get devices() {
         return this._devices;
+    }
+
+    get page() {
+        return this._page;
+    }
+
+    get totalCount() {
+        return this._totalCount;
+    }
+
+    get limit() {
+        return this._limit;
     }
 }
