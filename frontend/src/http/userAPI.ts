@@ -6,7 +6,6 @@ export const registration = async (email: string, password: string): Promise<Use
    const { data } = await $defaultHost.post('api/user/registration', {
       email,
       password,
-      role: 'ADMIN'
    });
    localStorage.setItem('token', data.jwt);
    return jwt_decode(data.jwt);
@@ -21,7 +20,7 @@ export const login = async (email: string, password: string): Promise<UserData> 
    return jwt_decode(data.jwt);
 }
 
-export const check = async ():Promise<UserData> => {
+export const auth = async ():Promise<UserData> => {
    const { data } = await $authHost.get('api/user/auth');
    localStorage.setItem('token', data.jwt);
    return jwt_decode(data.jwt);

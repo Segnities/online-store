@@ -1,27 +1,30 @@
 'use client';
 
-import { useEffect, useContext, useState, memo } from "react";
 import { observer } from "mobx-react-lite";
+import { memo, useContext, useEffect, useState } from "react";
 
 import { MobxContext } from "@/store/MobxProvider";
+import { auth } from "@/http/userAPI";
+import { UserData } from "@/store/UserStore";
 
-import CircularProgress from "@mui/joy/CircularProgress";
-import { check } from "@/http/userAPI";
-import type { UserData } from "@/store/UserStore";
+import CircularProgress from '@mui/joy/CircularProgress';
+
+
 
 const ObserveredLayout = observer(({ children }: { children: React.ReactNode }) => {
    const store = useContext(MobxContext);
    const user = store?.user;
-   const [loading, setLoading] = useState<boolean>(false);
+   const [loading, setLoading] = useState<boolean>(true);
 
+   useEffect(() => {
+      auth().then((data:UserData) => {
+            user?.setIsAuth(true);
+            user?.setUser(data);
+      }).finally(()=> setLoading(false));
+   }, []);
 
    if (loading) {
-      return (
-         <div className="absolute max-w-sm items-center inset-1/2 flex flex-col">
-            <CircularProgress color="primary" size="lg" />
-            <h3 className="text-2xl font-bold">Loading data...</h3>
-         </div>
-      )
+      <CircularProgress variant='outlined' />
    }
 
    return (

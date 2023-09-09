@@ -15,6 +15,7 @@ function AuthNavbarPanel() {
     const logout = () => {
         store?.user.setUser(null);
         store?.user.setIsAuth(false);
+        localStorage.removeItem('token');
         router.push('/login');
     }
 
