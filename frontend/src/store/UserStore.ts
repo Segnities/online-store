@@ -13,9 +13,12 @@ export default class UserStore {
     private _isAuth: boolean;
     private _user: UserData | null;
 
+    private _isAuthLoading: boolean;
+
     constructor() {
         this._isAuth = false;
         this._user = null;
+        this._isAuthLoading = true;
         makeAutoObservable(this);
     }
 
@@ -26,11 +29,22 @@ export default class UserStore {
         this._user = user;
     }
 
+    stopLoadingAuth() {
+        this._isAuthLoading = false;
+    }
+
     get isAuth() {
         return this._isAuth;
     }
 
+    get isAuthLoading() {
+        return this._isAuthLoading;
+    }
+
     get user() {
         return this._user;
+    }
+    get role() {
+        return this._user?.role;
     }
 }

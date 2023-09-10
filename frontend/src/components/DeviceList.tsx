@@ -12,7 +12,7 @@ import Pagination from "@mui/material/Pagination";
 
 import DeviceItem from "./DeviceItem";
 
-import { getAllDevices } from "@/http/devicesAPI";
+import { fetchAllDevices } from "@/http/devicesAPI";
 
 interface DeviceListProps {
     initialDevices: PaginationDevicesList;
@@ -44,7 +44,7 @@ function DeviceList(props: DeviceListProps) {
         const nullableSelectedTypeId = device?.selectedType?.id || null;
         const nullableSelectedBrandId = device?.selectedBrand?.id || null;
 
-       getAllDevices(nullableSelectedTypeId, nullableSelectedBrandId, page, 2).then((pageDevices:PaginationDevicesList) => {
+       fetchAllDevices(nullableSelectedTypeId, nullableSelectedBrandId, page, 2).then((pageDevices:PaginationDevicesList) => {
             store?.product.setDevices(pageDevices.rows);
             store?.product.setTotalCount(pageDevices.count);
         });

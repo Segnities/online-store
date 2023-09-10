@@ -1,3 +1,5 @@
+'use client';
+
 import { memo, useContext } from "react";
 import { MobxContext } from "@/store/MobxProvider";
 
@@ -5,7 +7,7 @@ interface DeviceDesctiptionProps {
     deviceId: number;
 }
 
-function DeviceDesctiption({ deviceId }: DeviceDesctiptionProps) {
+function DeviceDescription({ deviceId }: DeviceDesctiptionProps) {
     const store = useContext(MobxContext);
     const description = store?.product.getProductDescription(deviceId);
 
@@ -23,4 +25,4 @@ function DeviceDesctiption({ deviceId }: DeviceDesctiptionProps) {
     );
 }
 
-export default memo(DeviceDesctiption);
+export default memo(DeviceDescription);

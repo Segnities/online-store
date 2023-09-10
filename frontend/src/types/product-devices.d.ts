@@ -1,4 +1,4 @@
-export interface ProductDevices {
+export interface ProductDevice {
     id: number;
     name: string;
     price: number;
@@ -12,5 +12,5 @@ export interface ProductDevices {
 
 export interface PaginationDevicesList {
     count: number;
-    rows: ProductDevices[];
+    rows: ProductDevice[];
 }
