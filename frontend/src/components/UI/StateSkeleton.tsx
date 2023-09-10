@@ -1,12 +1,9 @@
-import { MobxContext } from "@/store/MobxProvider";
-import { Skeleton } from "@mui/material";
-import { observer } from "mobx-react-lite";
 import type { ReactNode } from "react";
-import { useContext } from "react";
-
 import type { StandardCSSProperties } from "@mui/system/styleFunctionSx/StandardCssProperties";
 
-interface WithAuthSkeletonProps {
+import { Skeleton } from "@mui/material";
+
+interface StateSkeletonProps {
    children: ReactNode;
    animation?: false | "wave" | "pulse" | undefined;
    className?: string;
@@ -14,16 +11,11 @@ interface WithAuthSkeletonProps {
    width?: number;
    height?: number;
    bgcolor?: StandardCSSProperties['backgroundColor'];
+   isLoading: boolean;
 }
 
-function WithAuthSkeleton(props: WithAuthSkeletonProps) {
-   const {
-      children,
-   } = props;
-   const store = useContext(MobxContext);
-   const isLoading = store?.user.isAuthLoading;
-
-   if (isLoading) {
+function StateSkeleton(props: StateSkeletonProps) {
+   if (props.isLoading) {
       return (
          <Skeleton
             variant={props?.variant}
@@ -31,18 +23,17 @@ function WithAuthSkeleton(props: WithAuthSkeletonProps) {
             className={props?.className}
             width={props?.width}
             height={props?.height}
-            sx={{ bgcolor: props?.bgcolor || 'gray.900'}}
+            sx={{ bgcolor: props?.bgcolor || 'gray.900' }}
          />
       )
    }
    return (
       <>
          {
-            children
+            props.children
          }
       </>
    );
-
 }
 
-export default observer(WithAuthSkeleton);
+export default StateSkeleton;

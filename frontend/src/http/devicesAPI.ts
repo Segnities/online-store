@@ -9,7 +9,7 @@ export const createDevice = async (device: Device) => {
    return data;
 }
 
-export const getAllDevices = async (typeId: NullableNumber, brandId: NullableNumber, page: number, limit: number) => {
+export const fetchAllDevices = async (typeId: NullableNumber, brandId: NullableNumber, page: number, limit: number) => {
    try {
       const { data } = await $defaultHost.get('api/device', {
          params: {
@@ -19,6 +19,15 @@ export const getAllDevices = async (typeId: NullableNumber, brandId: NullableNum
             limit
          }
       });
+      return data;
+   } catch (e) {
+      console.log(e);
+   }
+}
+
+export const fetchDeviceById = async (id: number) => {
+   try {
+      const { data } = await $defaultHost.get('api/device/' + id);
       return data;
    } catch (e) {
       console.log(e);

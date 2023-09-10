@@ -5,14 +5,14 @@ import { Card, CardActionArea, CardActions, CardContent, Divider } from "@mui/ma
 
 import useClientSide from "@/hooks/useClientSide";
 
-import type { ProductDevices } from "@/types/product-devices";
+import type { ProductDevice } from "@/types/product-devices";
 import DeviceItemImage from "./DeviceItemImage";
 import { useContext } from "react";
 
 import { MobxContext } from "@/store/MobxProvider";
 
 interface DeviceItemProps {
-    product: ProductDevices;
+    product: ProductDevice;
 }
 
 function DeviceItem(props: DeviceItemProps) {

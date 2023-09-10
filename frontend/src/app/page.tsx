@@ -3,18 +3,18 @@ import DeviceList from "@/components/DeviceList";
 import TypeBar from "@/components/TypeBar";
 import Grid from "@mui/material/Grid";
 
-import { getAllDevices } from "@/http/devicesAPI";
-import { getAllBrands } from "@/http/brandsAPI";
-import { getAllTypes } from "@/http/typesAPI";
+import { fetchAllDevices } from "@/http/devicesAPI";
+import { fetchAllBrands } from "@/http/brandsAPI";
+import { fetchAllTypes } from "@/http/typesAPI";
 
 import { Brands } from "@/types/brands-api";
 import type { PaginationDevicesList } from "@/types/product-devices";
 import type { Types } from "@/types/types-api";
 
 async function getData() {
-  const types: Types[] = await getAllTypes();
-  const brands: Brands[] = await getAllBrands();
-  const devices: PaginationDevicesList = await getAllDevices(null, null, 1, 2);
+  const types: Types[] = await fetchAllTypes();
+  const brands: Brands[] = await fetchAllBrands();
+  const devices: PaginationDevicesList = await fetchAllDevices(null, null, 1, 2);
 
   const items = [types, brands, devices];
 

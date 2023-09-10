@@ -6,7 +6,7 @@ export const createType = async () => {
    return data;
 }
 
-export const getAllTypes = async () => {
+export const fetchAllTypes = async () => {
    try {
       const { data } = await $defaultHost.get('api/type');
       return data;

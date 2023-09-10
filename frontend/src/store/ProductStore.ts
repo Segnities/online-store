@@ -2,12 +2,12 @@ import { makeAutoObservable } from "mobx";
 
 import type { ProductType } from "@/types/product-types";
 import type { ProductBrand } from "@/types/product-brands";
-import type { ProductDevices } from "@/types/product-devices";
+import type { ProductDevice } from "@/types/product-devices";
 
 export default class ProductStore {
     private _types: ProductType[];
     private _brands: ProductBrand[];
-    private _devices: ProductDevices[];
+    private _devices: ProductDevice[];
 
     private _selectedType: ProductType | null = null;
     private _selectedBrand: ProductBrand | null = null;
@@ -101,7 +101,7 @@ export default class ProductStore {
         this._selectedBrand = brand;
     }
 
-    public setDevices(devices: ProductDevices[]) {
+    public setDevices(devices: ProductDevice[]) {
         this._devices = devices;
     }
 

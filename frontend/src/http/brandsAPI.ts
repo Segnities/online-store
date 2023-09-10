@@ -6,7 +6,7 @@ export const createBrand = async () => {
    return data;
 }
 
-export const getAllBrands = async () => {
+export const fetchAllBrands = async () => {
    try {
       const { data } = await $defaultHost.get('api/brand');
       return data;

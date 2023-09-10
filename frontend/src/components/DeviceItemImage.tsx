@@ -10,7 +10,6 @@ export default function DeviceItemImage({ name, href }: DeviceItemImageProps) {
             src={process.env.api + href}
             className="w-full"
             alt={name}
-            loading="lazy"
             onDragStart={(e) => e.preventDefault()}
         />
     )
