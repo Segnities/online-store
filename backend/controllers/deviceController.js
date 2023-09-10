@@ -7,22 +7,13 @@ const ApiError = require('../error/ApiError');
 
 class DeviceRouter {
     async getAll(req, res) {
-        let { brandId, typeId, limit, page, info } = req.query;
+        let { brandId, typeId, limit, page } = req.query;
         page = page || 1;
         limit = limit || 10;
 
         let offset = (page * limit) - limit;
 
-        if (info) {
-            info = JSON.parse(info);
-            info.forEach(i => {
-                DeviceInfo.create({
-                    title: i.title,
-                    description: i.description,
-                    deviceId: i.id
-                });
-            })
-        }
+        
 
         let devices;
 
@@ -54,6 +45,17 @@ class DeviceRouter {
         try {
             const { name, price, brandId, typeId, info } = req.body;
             const { img } = req.files;
+
+            if (info) {
+                info = JSON.parse(info);
+                info.forEach(i => {
+                    DeviceInfo.create({
+                        title: i.title,
+                        description: i.description,
+                        deviceId: i.id
+                    });
+                });
+            }
 
             if (!img) {
                 return next(ApiError.badRequest("Image is required"));

@@ -7,6 +7,8 @@ import Stack from "@mui/material/Stack";
 import { MobxContext } from "@/store/MobxProvider";
 import { useRouter } from "next/navigation";
 
+import { observer } from "mobx-react-lite";
+
 import WithAuthSkeleton from "./UI/WithAuthSkeleton";
 
 function AuthNavbarPanel() {
@@ -50,4 +52,4 @@ function AuthNavbarPanel() {
     );
 }
 
-export default memo(AuthNavbarPanel);
+export default memo(observer(AuthNavbarPanel));

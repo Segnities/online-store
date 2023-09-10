@@ -22,10 +22,8 @@ function DeviceHeader({ slug }: IDeviceHeaderProps) {
     return (
         <Grid container className="p-5" spacing={3}>
             <Grid item xs={12} md={4}>
-                <Image
+                <img
                     src={device?.img || ""}
-                    width={500}
-                    height={500}
                     alt={device?.name || ""}
                     onDragStart={(e) => e.preventDefault()}
                 />

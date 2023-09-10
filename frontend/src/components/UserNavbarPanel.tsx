@@ -1,15 +1,14 @@
 'use client';
 
-import { memo, useContext } from "react";
 import Link from "next/link";
+import { memo } from "react";
 
 import Button from "@mui/material/Button";
 
-import { MobxContext } from "@/store/MobxProvider";
 import WithAuthSkeleton from "./UI/WithAuthSkeleton";
+import { observer } from "mobx-react-lite";
 
 function UserNavbarPanel() {
-    const store = useContext(MobxContext);
 
     return (
         <div>
@@ -27,4 +26,4 @@ function UserNavbarPanel() {
     );
 }
 
-export default memo(UserNavbarPanel);
+export default memo(observer(UserNavbarPanel));
