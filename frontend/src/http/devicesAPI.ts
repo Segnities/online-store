@@ -1,6 +1,7 @@
 import { $authHost, $defaultHost } from "./index";
 
 import type { Device } from "@/types/devices-api";
+import type { ProductDevice } from "@/types/product-devices";
 
 type NullableNumber = number | null;
 
@@ -25,7 +26,7 @@ export const fetchAllDevices = async (typeId: NullableNumber, brandId: NullableN
    }
 }
 
-export const fetchDeviceById = async (id: number) => {
+export const fetchDeviceById = async (id: number):Promise<ProductDevice | undefined> => {
    try {
       const { data } = await $defaultHost.get('api/device/' + id);
       return data;

@@ -1,3 +1,9 @@
+export interface DeviceInfoType {
+    id: number;
+    title: string;
+    description: string;
+}
+
 export interface ProductDevice {
     id: number;
     name: string;
@@ -8,6 +14,7 @@ export interface ProductDevice {
     updatedAt: string;
     brandId: number;
     typeId: number;
+    info?: DeviceInfoType[]
 }
 
 export interface PaginationDevicesList {

@@ -108,7 +108,7 @@ function CreateDeviceForm() {
                </div>
             ))
          }
-         <Button variant="contained" type="submit" color="success" className="bg-green-600">Create</Button>
+         <Button variant="contained" type="submit" color="success" className="bg-green-600 w-1/5">Create</Button>
       </form>
    );
 }

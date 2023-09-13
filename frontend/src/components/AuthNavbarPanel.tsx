@@ -1,5 +1,7 @@
-import { memo, useContext } from "react";
+'use client';
+
 import Link from "next/link";
+import { useContext, memo } from "react";
 
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";

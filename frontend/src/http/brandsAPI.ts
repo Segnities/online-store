@@ -1,8 +1,8 @@
 import { $defaultHost, $authHost } from "./index";
 
 
-export const createBrand = async () => {
-   const { data } = await $authHost.post('api/brand');
+export const createBrand = async (name:string) => {
+   const { data } = await $authHost.post('api/brand', { name });
    return data;
 }
 

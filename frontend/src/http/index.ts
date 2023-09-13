@@ -10,12 +10,14 @@ const $authHost = axios.create({
 });
 
 
-const authInterceptor = (config: InternalAxiosRequestConfig) => {
-   config.headers['Authorization']= `Bearer ${localStorage.getItem('token')}`;
-   return config;
+const authInterceptor = (request: InternalAxiosRequestConfig) => {
+   request.headers['Authorization']= `Bearer ${localStorage.getItem('token')}`;
+   return request;
 }
 
-$authHost.interceptors.request.use(authInterceptor);
+$authHost.interceptors.request.use(authInterceptor, (err)=> {
+   return Promise.reject(err);
+});
 
 
 export { $authHost, $defaultHost };

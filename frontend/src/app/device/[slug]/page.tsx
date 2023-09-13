@@ -1,38 +1,27 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState } from "react";
-
-import DeviceDescription from "@/components/DeviceDescription";
-import DeviceHeader from "@/components/DeviceHeader";
+import DeviceProduct from "@/components/DeviceProduct";
 import { fetchDeviceById } from "@/http/devicesAPI";
-import type { ProductDevice } from "@/types/product-devices";
+import DeviceInfo from "@/components/DeviceInfo";
+import type { DeviceInfoType } from "@/types/product-devices";
 
-export const fetchDeviceContext = createContext(true);
-export const useDeviceFetchContext = () => useContext(fetchDeviceContext);
+export async function getData(deviceId: number) {
+    const device = await fetchDeviceById(deviceId);
+    return device;
+}
 
 
-export default function Device({ params }: { params: { slug: string } }) {
+export default async function Device({ params }: { params: { slug: string } }) {
     const deviceId = parseInt(params.slug);
-    const [device, setDevice] = useState<ProductDevice | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
-
-    useEffect(() => {
-        fetchDeviceById(deviceId).then((data) => {
-            setDevice(data);
-        }).finally(() => {
-            setLoading(false);
-        })
-    }, []);
+    const device = await getData(deviceId);
+    const info: DeviceInfoType[] | undefined = device?.info;
 
     return (
-        <fetchDeviceContext.Provider value={loading}>
             <div className="flex flex-col gap-3">
-                <DeviceHeader
-                    slug={deviceId}
+                <DeviceProduct
                     device={device}
                 />
-                <DeviceDescription deviceId={deviceId} />
+                <DeviceInfo info={info}/>
             </div>
-        </fetchDeviceContext.Provider>
     );
 }
