@@ -1,8 +1,8 @@
 import { $defaultHost, $authHost } from "./index";
 
 
-export const createType = async () => {
-   const { data } = await $authHost.post('api/type');
+export const createType = async (name:string) => {
+   const { data } = await $authHost.post('api/type', {name});
    return data;
 }
 
