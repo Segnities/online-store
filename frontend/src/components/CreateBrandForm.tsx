@@ -1,37 +1,54 @@
 'use client'
 
-import { memo, useState } from "react";
-import type { FormEvent } from "react";
+import {memo} from "react";
 
-import { Button, TextField } from "@mui/material";
-import { createBrand } from "@/http/brandsAPI";
+import {Button, TextField} from "@mui/material";
+import {createBrand} from "@/http/brandsAPI";
+import {useForm} from "react-hook-form";
+import {yupResolver} from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const schema = yup.object({
+    brandName: yup.string().required()
+})
 
 function CreateBrandForm() {
-   const [brandName, setBrandName] = useState<string>('');
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: {
+            errors
+        }
+    } = useForm({
+        resolver: yupResolver(schema),
+        defaultValues: {
+            brandName: '',
+        }
+    });
+    const onSubmit = (data) => {
+        createBrand(data.brandName).finally(() => {
+            console.log('Brand created!');
+            reset();
+        });
+    }
 
-   const handleSubmit = (e:FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      createBrand(brandName).finally(()=> {
-         setBrandName('');
-         console.log('Brand created!');
-      });
-   }
+    return (
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <TextField
+                label="Title"
+                variant="outlined"
+                type="text"
+                {...register('brandName')}
+                aria-label="Create brand title"
+                className="w-full"
 
-   return (
-      <form onSubmit={handleSubmit}>
-         <TextField
-            label="Title"
-            variant="outlined"
-            type="text"
-            value={brandName}
-            onChange={(e)=> setBrandName(e.target.value)}
-            name="brand-title"
-            aria-label="Create brand title"
-            className="w-full"
-         />
-         <Button variant="contained" type="submit" className="bg-sky-500 mt-4 float-right hover:bg-sky-700">Create</Button>
-      </form>
-   );
+            />
+            <Button variant="contained" type="submit"
+                    className="bg-sky-500 mt-4 float-right hover:bg-sky-700">Create</Button>
+            <p>{errors.brandName?.message}</p>
+        </form>
+    );
 }
 
 export default memo(CreateBrandForm);
