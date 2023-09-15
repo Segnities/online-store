@@ -1,4 +1,3 @@
-import type {FormEvent} from "react";
 import {memo} from "react";
 import {Button, TextField} from "@mui/material";
 

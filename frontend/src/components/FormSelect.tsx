@@ -1,4 +1,4 @@
-
+'use client';
 
 import type { BasicSelectProps } from "@/types/formik-custom-select";
 import CustomSelect from "./UI/Select";
@@ -19,11 +19,11 @@ function FormSelect(props: BasicSelectProps) {
                 {labelText}
             </StyledLabel>
             <CustomSelect
-                name={selectHtmlName}
+                {...props}
             >
                 {
                     options?.map(option => (
-                        <StyledOption key={option.id} value={option.value}>{option.title}</StyledOption>
+                        <StyledOption key={option.id} value={option.id}>{option.title}</StyledOption>
                     ))
                 }
             </CustomSelect>

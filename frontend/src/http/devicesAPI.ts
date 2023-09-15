@@ -1,11 +1,11 @@
-import { $authHost, $defaultHost } from "./index";
+import {$authHost, $defaultHost} from "./index";
 
-import type { Device } from "@/types/devices-api";
-import type { ProductDevice } from "@/types/product-devices";
+import type {ProductDevice} from "@/types/product-devices";
+import type {TargetDevice} from "@/types/devices-api";
 
 type NullableNumber = number | null;
 
-export const createDevice = async (device: Device) => {
+export const createDevice = async (device: TargetDevice) => {
    const { data } = await $authHost.post('api/device', device);
    return data;
 }
