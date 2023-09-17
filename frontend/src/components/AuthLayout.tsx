@@ -8,7 +8,7 @@ import { auth } from "@/http/userAPI";
 import { MobxContext } from "@/store/MobxProvider";
 import { UserData } from "@/store/UserStore";
 
-const ObserveredLayout = observer(({ children }: { children: React.ReactNode }) => {
+const AuthLayout = observer(({ children }: { children: React.ReactNode }) => {
    const store = useContext(MobxContext);
    const user = store?.user;
 
@@ -28,4 +28,4 @@ const ObserveredLayout = observer(({ children }: { children: React.ReactNode }) 
    );
 });
 
-export default memo(ObserveredLayout);
+export default memo(AuthLayout);
