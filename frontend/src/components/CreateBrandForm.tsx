@@ -5,12 +5,17 @@ import {memo} from "react";
 import {Button, TextField} from "@mui/material";
 import {createBrand} from "@/http/brandsAPI";
 import {useForm} from "react-hook-form";
+import type {SubmitHandler} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 const schema = yup.object({
     brandName: yup.string().required()
 })
+
+type FormValues = {
+    brandName: string
+}
 
 function CreateBrandForm() {
     const {
@@ -20,18 +25,19 @@ function CreateBrandForm() {
         formState: {
             errors
         }
-    } = useForm({
+    } = useForm<FormValues>({
         resolver: yupResolver(schema),
         defaultValues: {
             brandName: '',
         }
     });
-    const onSubmit = (data) => {
+    const onSubmit: SubmitHandler<FormValues> = (data) => {
         createBrand(data.brandName).finally(() => {
             console.log('Brand created!');
             reset();
         });
     }
+
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>

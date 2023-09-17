@@ -10,6 +10,8 @@ export type BasicSelectProps = {
    options: MUIBasicSelectOption[] | undefined,
    ariaLabel?: string;
    ariaErrorMessage?: string;
+   value?: string;
+   onChange?: (e:any)=> void;
 };
 
 type FormikCustomSelect = BasicSelectProps & FieldHookConfig<string>;
