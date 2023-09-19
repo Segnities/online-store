@@ -8,7 +8,7 @@ export interface Device {
 }
 
 export interface DeviceInfo {
-   id:string;
+   key:string;
    title: string;
    description: string;
 }

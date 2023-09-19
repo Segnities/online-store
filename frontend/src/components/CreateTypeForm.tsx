@@ -1,10 +1,16 @@
 import {memo} from "react";
 import {Button, TextField} from "@mui/material";
 
+import type {SubmitHandler} from "react-hook-form";
+
 import {createType} from "@/http/typesAPI";
 import {useForm} from "react-hook-form";
 import * as Yup from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
+
+interface FormValues {
+    typeName: string;
+}
 
 const schema = Yup.object({
     typeName: Yup.string().required()
@@ -24,7 +30,7 @@ function CreateTypeForm() {
             typeName: '',
         }
     })
-    const onSubmit = (data) => {
+    const onSubmit:SubmitHandler<FormValues> = (data) => {
         createType(data.typeName).finally(() => {
             console.log('Type created!');
             reset();

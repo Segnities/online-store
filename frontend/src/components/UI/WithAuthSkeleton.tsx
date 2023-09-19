@@ -2,7 +2,7 @@ import { MobxContext } from "@/store/MobxProvider";
 import { Skeleton } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import type { ReactNode } from "react";
-import { useContext } from "react";
+import { useContext, memo } from "react";
 
 import type { StandardCSSProperties } from "@mui/system/styleFunctionSx/StandardCssProperties";
 
@@ -45,4 +45,4 @@ function WithAuthSkeleton(props: WithAuthSkeletonProps) {
 
 }
 
-export default observer(WithAuthSkeleton);
+export default memo(observer(WithAuthSkeleton));

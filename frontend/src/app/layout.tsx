@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
 import MobxProvider from '@/store/MobxProvider';
-import ObserveredLayout from "@/components/ObserveredLayout";
+import AuthLayout from "@/components/AuthLayout";
 import Navbar from '@/components/Navbar';
 
 import './globals.css';
@@ -30,10 +30,10 @@ function RootLayout({
     <html lang="en">
       <body className={`${inter.className}`}>
         <MobxProvider>
-          <ObserveredLayout>
+          <AuthLayout>
             <Navbar />
             {children}
-          </ObserveredLayout>
+          </AuthLayout>
         </MobxProvider>
       </body>
     </html>

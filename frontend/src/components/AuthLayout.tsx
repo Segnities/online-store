@@ -8,18 +8,23 @@ import { auth } from "@/http/userAPI";
 import { MobxContext } from "@/store/MobxProvider";
 import { UserData } from "@/store/UserStore";
 
-const ObserveredLayout = observer(({ children }: { children: React.ReactNode }) => {
+const AuthLayout = observer(({ children }: { children: React.ReactNode }) => {
    const store = useContext(MobxContext);
    const user = store?.user;
 
    useEffect(() => {
       auth().then((data:UserData) => {
-            user?.setIsAuth(true);
-            user?.setUser(data);
+            if(localStorage.getItem('token')) {
+               user?.setIsAuth(true);
+               user?.setUser(data);
+            }
+           
+      }).catch(e => {
+         user?.setIsAuth(false);
       }).finally(()=> {
          user?.stopLoadingAuth()
       });
-   }, []);
+   }, [user?.isAuth]);
 
    return (
       <>
@@ -28,4 +33,4 @@ const ObserveredLayout = observer(({ children }: { children: React.ReactNode }) 
    );
 });
 
-export default memo(ObserveredLayout);
+export default memo(AuthLayout);
