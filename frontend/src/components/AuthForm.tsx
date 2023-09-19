@@ -2,7 +2,7 @@
 
 import type { FormEvent } from "react";
 import { memo, useContext, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 import Card from "@mui/material/Card";
 import TextField from "@mui/material/TextField";
@@ -15,14 +15,9 @@ import { observer } from "mobx-react-lite";
 import { MobxContext } from "@/store/MobxProvider";
 import type { UserData } from "@/store/UserStore";
 
-interface AuthFormProps {
-    pathname: string;
-}
 
-function AuthForm(props: AuthFormProps) {
-    const {
-        pathname
-    } = props;
+function AuthForm() {
+    const pathname = usePathname();
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('');
     const store = useContext(MobxContext);

@@ -5,8 +5,6 @@ import { nanoid } from "nanoid";
 
 import type { MUIBasicSelectOption } from "@/types/mui-basic-select";
 import FormInput from "./FormInput";
-import FormSelect from "./FormSelect";
-import StyledTextarea from "./UI/StyledTextarea";
 
 import { Button, TextField } from "@mui/material";
 
@@ -15,7 +13,7 @@ import type { DeviceInfo } from "@/types/devices-api";
 
 interface IDevice {
     name: string;
-    img: File | null;
+    img: Blob | string;
     typeId: number;
     brandId: number;
     price: number;
@@ -24,9 +22,9 @@ interface IDevice {
 function CreateDeviceForm() {
     const [deviceData, setDeviceData] = useState<IDevice>({
         name: '',
-        img: null,
-        typeId: -1,
-        brandId: -1,
+        img: '',
+        typeId: 1,
+        brandId: 1,
         price: 0,
     });
 
@@ -42,24 +40,24 @@ function CreateDeviceForm() {
     });
     const brands: MUIBasicSelectOption[] | undefined = store?.product.brands.map(brand => {
         return {
-            id:brand.id.toString(),
+            id: brand.id.toString(),
             title: brand.name,
             value: brand.id.toString()
         }
     });
     const handleAddProductInfo = () => {
         const newProductInfo: DeviceInfo = {
-            id: nanoid(),
+            key: nanoid(),
             title: '',
             description: ''
         };
         setInfo(prev => [...prev, newProductInfo]);
     }
     const handleDeleteProductInfo = (rmId: string) => {
-        const clearedProductInfo = [...info].filter(product => product.id !== rmId);
+        const clearedProductInfo = [...info].filter(product => product.key !== rmId);
         setInfo(clearedProductInfo);
     }
-    const onNameChange = (e:ChangeEvent<HTMLInputElement>) => {
+    const onNameChange = (e: ChangeEvent<HTMLInputElement>) => {
         setDeviceData(prevState => {
             return {
                 ...prevState,
@@ -68,15 +66,15 @@ function CreateDeviceForm() {
         });
     }
 
-    const selectTypeId = (e:ChangeEvent<HTMLSelectElement>) => {
+    const selectTypeId = (e: ChangeEvent<HTMLSelectElement>) => {
         console.log(e.target.value);
         const tId = parseInt(e.target.value)
         setDeviceData(prevState => {
-            return {...prevState, typeId: tId}
+            return { ...prevState, typeId: tId }
         });
     };
 
-    const selectBrandId = (e:ChangeEvent<HTMLSelectElement>) => {
+    const selectBrandId = (e: ChangeEvent<HTMLSelectElement>) => {
         console.log(e.target.value);
         const bId = parseInt(e.target.value);
         setDeviceData(prevState => {
@@ -84,17 +82,25 @@ function CreateDeviceForm() {
                 ...prevState, brandId: bId
             }
         })
-    } 
-    
-    const onImgChange = (e:ChangeEvent<HTMLInputElement>) => {
+    }
+
+    const onImgChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.currentTarget?.files![0];
-        const photo =  file ? file : null;
+        const photo = file ? file : null;
         setDeviceData(prevState => {
-            return {...prevState, photo}
+            return { ...prevState, photo }
         });
     }
 
-    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleInfoChange = (
+        e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+        prop: "title" | "description",
+        key:string
+    ) => {
+        setInfo(info.map(it => it.key === key ? {...it, [prop]: e.target.value} : it));
+    }
+
+    const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
     }
 
@@ -151,24 +157,27 @@ function CreateDeviceForm() {
             </Button>
             {
                 info.map(info => (
-                    <div className="flex flex-col items-center gap-4" key={info.id}>
-                        <FormInput
+                    <div className="flex flex-col items-center gap-4" key={info.key}>
+                        <TextField
                             label="Enter title"
                             variant="outlined"
                             type="text"
                             placeholder="Enter title"
                             className="w-full"
+                            value={info.title}
+                            onChange={(e)=> handleInfoChange(e, 'title', info.key)}
                         />
-                        <StyledTextarea
-                            ariaLabel="Enter description"
-                            minRows={5}
+                        <textarea
+                            className="w-full min-h-[175px] focus:outline-2 focus:outline-sky-600 border-2 focus:border p-3"
                             placeholder="Enter description"
+                            value={info.description}
+                            onChange={(e)=> handleInfoChange(e, 'description', info.key)}
                         />
                         <Button
                             variant="contained"
                             color="error"
                             className="bg-red-600"
-                            onClick={() => handleDeleteProductInfo(info.id)}
+                            onClick={() => handleDeleteProductInfo(info.key)}
                         >
                             Delete
                         </Button>
