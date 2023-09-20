@@ -13,15 +13,15 @@ const AuthLayout = observer(({ children }: { children: React.ReactNode }) => {
    const user = store?.user;
 
    useEffect(() => {
-      auth().then((data:UserData) => {
-            if(localStorage.getItem('token')) {
-               user?.setIsAuth(true);
-               user?.setUser(data);
-            }
-           
+      auth().then((data: UserData) => {
+         if (localStorage.getItem('token')) {
+            user?.setIsAuth(true);
+            user?.setUser(data);
+         }
+
       }).catch(e => {
          user?.setIsAuth(false);
-      }).finally(()=> {
+      }).finally(() => {
          user?.stopLoadingAuth()
       });
    }, [user?.isAuth]);
