@@ -1,11 +1,11 @@
+import type { FormDevice } from "@/types/devices-api";
 import {$authHost, $defaultHost} from "./index";
 
 import type {ProductDevice} from "@/types/product-devices";
-import type {TargetDevice} from "@/types/devices-api";
 
 type NullableNumber = number | null;
 
-export const createDevice = async (device: TargetDevice) => {
+export const createDevice = async (device: FormData) => {
    const { data } = await $authHost.post('api/device', device);
    return data;
 }
