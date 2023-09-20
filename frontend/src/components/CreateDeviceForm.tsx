@@ -8,7 +8,8 @@ import type { MUIBasicSelectOption } from "@/types/mui-basic-select";
 import { Button, TextField } from "@mui/material";
 
 import { MobxContext } from "@/store/MobxProvider";
-import type { DeviceInfo } from "@/types/devices-api";
+import type { DeviceInfo, FormDevice } from "@/types/devices-api";
+import { createDevice } from "@/http/devicesAPI";
 
 interface IDevice {
     name: string;
@@ -65,19 +66,27 @@ function CreateDeviceForm() {
     const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
         try {
             e.preventDefault();
-            const devicePrice = parseInt(price);
-            const device = { name, img, price: devicePrice, typeId, brandId, info };
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('price', `${parseInt(price)}`);
+            if (img) {
+                formData.append("img", img);
+            }
+            formData.append('brandId', brandId.toString());
+            formData.append('typeId', typeId.toString());
+            formData.append('info', JSON.stringify(info));
 
+            const createdDevice = await createDevice(formData)
+            console.log(createdDevice);
         } catch (e) {
             console.log(e);
         } finally {
             console.log('Process of device creating is done ...');
         }
     }
-
     // @ts-ignore
     return (
-        <form className="grid grid-flow-row gap-5">
+        <form className="grid grid-flow-row gap-5" onSubmit={onSubmit}>
             <TextField
                 label="Name"
                 variant="outlined"

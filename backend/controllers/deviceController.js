@@ -1,4 +1,4 @@
-const uuid = require('uuid');
+const {v4: uuid} = require('uuid');
 const path = require('path');
 const { Device, DeviceInfo } = require('../models/models');
 
@@ -12,8 +12,6 @@ class DeviceRouter {
         limit = limit || 10;
 
         let offset = (page * limit) - limit;
-
-        
 
         let devices;
 
@@ -44,31 +42,34 @@ class DeviceRouter {
     async create(req, res, next) {
         try {
             const { name, price, brandId, typeId, info } = req.body;
-            const { img } = req.files;
+            const req_files = req.files;
+            const img = req_files?.img;
 
-            if (info) {
-                info = JSON.parse(info);
-                info.forEach(i => {
-                    DeviceInfo.create({
-                        title: i.title,
-                        description: i.description,
-                        deviceId: i.id
-                    });
-                });
+            let fileName = '';
+
+            if (img) {
+                fileName = uuid() + '.jpg';
+                img.mv(path.resolve(__dirname, '..', 'static', fileName));
             }
-
-            if (!img) {
-                return next(ApiError.badRequest("Image is required"));
-            }
-            let fileName = uuid.v4() + ".jpg";
-
-            img.mv(path.resolve(__dirname, '..', 'static', fileName));
 
             const device = await Device.create({
-                name, price, brandId, typeId,
+                name, price, brandId: parseInt(brandId), typeId: parseInt(typeId),
                 img: fileName
             });
 
+            if (info) {
+                const dInfo  = JSON.parse(info);
+                for (const inf of dInfo) {
+                    await  DeviceInfo.create({
+                        title: inf.title,
+                        description: inf.description,
+                        deviceId: device.id
+                    });
+                }
+                
+            }
+
+         
             return res.json(device);
         } catch (error) {
             return next(ApiError.badRequest(error.message));

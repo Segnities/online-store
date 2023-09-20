@@ -2,6 +2,17 @@ const { DataTypes } = require('sequelize');
 
 const db = require('../db.js');
 
+
+const Type = db.define('type', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    name: { type: DataTypes.STRING, unique: true, allowNull: false },
+});
+
+const Brand = db.define('brand', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    name: { type: DataTypes.STRING, unique: true, allowNull: false },
+});
+
 const User = db.define('user', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     email: { type: DataTypes.STRING, unique: true },
@@ -22,17 +33,21 @@ const Device = db.define('device', {
     name: { type: DataTypes.STRING, unique: true, allowNull: false },
     price: { type: DataTypes.FLOAT, allowNull: false },
     rating: { type: DataTypes.INTEGER, defaultValue: 0 },
-    img: { type: DataTypes.STRING, allowNull: false }
-});
-
-const Type = db.define('type', {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    name: { type: DataTypes.STRING, unique: true, allowNull: false },
-});
-
-const Brand = db.define('brand', {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    name: { type: DataTypes.STRING, unique: true, allowNull: false },
+    img: { type: DataTypes.STRING },
+    brandId: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: Brand,
+            key: 'id'
+        }
+    },
+    typeId: {
+        type: DataTypes.INTEGER,
+        references: {
+            model:Type,
+            key: 'id'   
+        }
+    }
 });
 
 const Rating = db.define('rating', {
@@ -44,6 +59,13 @@ const DeviceInfo = db.define('device_info', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     title: { type: DataTypes.STRING, allowNull: false },
     description: { type: DataTypes.STRING, allowNull: false },
+    deviceId: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: Device,
+            key: 'id'
+        }
+    }
 });
 
 const TypeBrand = db.define('type_brand', {

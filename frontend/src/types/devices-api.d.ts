@@ -13,7 +13,11 @@ export interface DeviceInfo {
    description: string;
 }
 
-export interface TargetDevice extends Device {
-   device: Device;
+export interface FormDevice {
+   name: string;
+   price: number;
+   typeId: number;
+   brandId: number;
+   img: File | null;
    info: DeviceInfo[];
 }
