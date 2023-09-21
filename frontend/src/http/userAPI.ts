@@ -11,6 +11,10 @@ export const registration = async (email: string, password: string): Promise<Use
    return jwt_decode(data.jwt);
 }
 
+export const logout = () => {
+   localStorage.removeItem('token');
+}
+
 export const login = async (email: string, password: string): Promise<UserData> => {
    const { data } = await $defaultHost.post('api/user/login', {
       email,
