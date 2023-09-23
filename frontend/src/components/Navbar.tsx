@@ -5,8 +5,8 @@ import { memo, useContext } from "react";
 import { MobxContext } from "@/store/MobxProvider";
 
 import NavbarBrand from "./NavbarBrand";
-import UserNavbarPanel from "./UserNavbarPanel";
-import AuthNavbarPanel from "./AuthNavbarPanel";
+import UserNavbarPanel from "./GuestNavbarPanel";
+import AuthNavbarPanel from "./UserNavbarPanel";
 import { observer } from "mobx-react-lite";
 
 function Navbar() {

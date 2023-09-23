@@ -35,6 +35,7 @@ function AuthForm() {
                 console.log(response);
                 setEmail('');
                 setPassword('');
+                store?.user.setIsAuth(true);
             } else {
                 const response: UserData = await registration(email, password);
                 userData = response;

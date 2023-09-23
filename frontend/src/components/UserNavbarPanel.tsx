@@ -1,28 +1,56 @@
 'use client';
 
 import Link from "next/link";
-import { memo } from "react";
+import { useContext, memo } from "react";
 
 import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
 
-import WithAuthSkeleton from "./UI/WithAuthSkeleton";
+import { MobxContext } from "@/store/MobxProvider";
+import { useRouter } from "next/navigation";
+
 import { observer } from "mobx-react-lite";
 
+import WithAuthSkeleton from "./UI/WithAuthSkeleton";
+
 function UserNavbarPanel() {
+    const store = useContext(MobxContext);
+    const isAdmin = store?.user.user?.role === 'ADMIN';
+    const router = useRouter();
+
+    const logout = () => {
+        store?.user.setUser(null);
+        store?.user.setIsAuth(false);
+        localStorage.removeItem('token');
+        router.push('/login');
+    }
 
     return (
-        <div>
-            <Link href="/login">
-                <WithAuthSkeleton animation="wave" variant="rectangular" width={140} height={45}>
-                    <Button
-                        variant='outlined'
-                        className="text-white border-white hover:text-sky-500"
-                    >
-                        Auth
-                    </Button>
-                </WithAuthSkeleton>
-            </Link>
-        </div>
+        <Stack spacing={2} direction='row'>
+            {
+                isAdmin ? (
+                    <Link href="/admin">
+                        <WithAuthSkeleton variant="rectangular" animation="wave" width={120} height={45}>
+                            <Button
+                                variant='contained'
+                                className="bg-sky-500 hover:bg-sky-600"
+                            >
+                                Admin panel
+                            </Button>
+                        </WithAuthSkeleton>
+                    </Link>
+                ) : null
+            }
+            <WithAuthSkeleton variant="rectangular" animation="wave" width={120} height={45}>
+                <Button
+                    variant='outlined'
+                    className="text-white border-white hover:text-sky-500"
+                    onClick={logout}
+                >
+                    Logout
+                </Button>
+            </WithAuthSkeleton>
+        </Stack>
     );
 }
 
