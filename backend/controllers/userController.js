@@ -52,7 +52,7 @@ class UserController {
             if (!user) {
                 next(ApiError.unauthorizedRequest('User not found!'));
             }
-            const acess_token = jsonwebtoken.sign({id: user.id, email: user.email, role: user.role}, process.env.ACCESS_SECRET_KEY, {
+            const access_token = jsonwebtoken.sign({id: user.id, email: user.email, role: user.role}, process.env.ACCESS_SECRET_KEY, {
                 expiresIn: '15m',
             });
             res.json({access_token});
