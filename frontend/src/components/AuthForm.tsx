@@ -35,7 +35,6 @@ function AuthForm() {
                 console.log(response);
                 setEmail('');
                 setPassword('');
-                store?.user.setIsAuth(true);
             } else {
                 const response: UserData = await registration(email, password);
                 userData = response;
@@ -45,7 +44,7 @@ function AuthForm() {
                 setPassword('');
             }
             store?.user.setUser(userData);
-            store?.user.setIsAuth(true);
+            store?.user.setIsAuth(true);    
             router.push('/');
         } catch (e) {
             console.log(e);
@@ -89,4 +88,4 @@ function AuthForm() {
     );
 }
 
-export default memo(observer(AuthForm));    
+export default observer(AuthForm);    

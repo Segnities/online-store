@@ -1,13 +1,13 @@
 'use client';
 
-import { memo, useContext } from "react";
+import { useContext } from "react";
 
 import { MobxContext } from "@/store/MobxProvider";
 
-import NavbarBrand from "./NavbarBrand";
-import UserNavbarPanel from "./GuestNavbarPanel";
-import AuthNavbarPanel from "./UserNavbarPanel";
 import { observer } from "mobx-react-lite";
+import GuestNavbarPanel from "./GuestNavbarPanel";
+import NavbarBrand from "./NavbarBrand";
+import UserNavbarPanel from "./UserNavbarPanel";
 
 function Navbar() {
     const store = useContext(MobxContext);
@@ -16,10 +16,10 @@ function Navbar() {
         <nav className="flex px-4 md:px-20 py-6 justify-between items-center w-full h-22 bg-slate-700">
             <NavbarBrand />
             {
-                isAuth ? <AuthNavbarPanel /> : <UserNavbarPanel />
+                isAuth ? <UserNavbarPanel /> : <GuestNavbarPanel />
             }
         </nav>
     )
 }
 
-export default memo(observer(Navbar));
+export default observer(Navbar);

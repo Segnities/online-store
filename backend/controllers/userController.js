@@ -14,7 +14,7 @@ const generateJwtTokens = (id, email, role) => {
     const refresh_token = jsonwebtoken.sign({ id, email, role }, process.env.REFRESH_SECRET_KEY, {
         expiresIn: '7d',
     });
-    return { acess_token: access_token, refresh_token };
+    return { access_token: access_token, refresh_token };
 }
 
 class UserController {
@@ -63,8 +63,9 @@ class UserController {
 
     async auth(req, res, next) {
         try {
-            const jwt = generateJwtTokens(req.user.id, req.user.email, req.user.role);
-            return res.json({ jwt });
+            const token = generateJwtTokens(req.user.id, req.user.email, req.user.role);
+            const access_token = token.access_token;
+            return res.json({ access_token });
         } catch (e) {
             console.log(e);
         }
