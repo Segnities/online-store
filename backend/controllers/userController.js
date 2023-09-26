@@ -8,13 +8,13 @@ const ApiError = require("../error/ApiError");
 require('dotenv').config();
 
 const generateJwtTokens = (id, email, role) => {
-    const acess_token = jsonwebtoken.sign({ id, email, role }, process.env.ACCESS_SECRET_KEY, {
+    const access_token = jsonwebtoken.sign({ id, email, role }, process.env.ACCESS_SECRET_KEY, {
         expiresIn: '15m',
     });
     const refresh_token = jsonwebtoken.sign({ id, email, role }, process.env.REFRESH_SECRET_KEY, {
         expiresIn: '7d',
     });
-    return { acess_token, refresh_token };
+    return { acess_token: access_token, refresh_token };
 }
 
 class UserController {
@@ -37,6 +37,27 @@ class UserController {
             return res.json({ jwt });
         } catch (error) {
             console.log(error);
+        }
+    }
+
+    async refresh(req, res, next) {
+        const {refresh_token} = req.body;
+
+        if (!refresh_token) {
+            next(ApiError.unauthorizedRequest('Refresh token is missing!')); 
+        }
+        try {
+            const decodedToken = jsonwebtoken.verify(refresh_token, process.env.REFRESH_SECRET_KEY);
+            const user = await User.findByPk(decodedToken.id);
+            if (!user) {
+                next(ApiError.unauthorizedRequest('User not found!'));
+            }
+            const acess_token = jsonwebtoken.sign({id: user.id, email: user.email, role: user.role}, process.env.ACCESS_SECRET_KEY, {
+                expiresIn: '15m',
+            });
+            res.json({access_token});
+        } catch (e) {
+            next(ApiError.unauthorizedRequest('User not found!'));
         }
     }
 
@@ -68,6 +89,7 @@ class UserController {
             console.log(e);
         }
     }
+
 }
 
 module.exports = new UserController();
