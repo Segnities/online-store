@@ -7,10 +7,14 @@ const ApiError = require("../error/ApiError");
 
 require('dotenv').config();
 
-const generateJwtToken = (id, email, role) => {
-    return jsonwebtoken.sign({ id, email, role }, process.env.SECRET_KEY, {
-        expiresIn: '24h',
+const generateJwtTokens = (id, email, role) => {
+    const access_token = jsonwebtoken.sign({ id, email, role }, process.env.ACCESS_SECRET_KEY, {
+        expiresIn: '15m',
     });
+    const refresh_token = jsonwebtoken.sign({ id, email, role }, process.env.REFRESH_SECRET_KEY, {
+        expiresIn: '7d',
+    });
+    return { access_token: access_token, refresh_token };
 }
 
 class UserController {
@@ -29,17 +33,39 @@ class UserController {
             const newUser = await User.create({ email, role, password: hashPassword, role });
             const basket = await Basket.create({ userId: newUser.id });
 
-            const jwt = generateJwtToken(newUser.id, newUser.email, newUser.role);
+            const jwt = generateJwtTokens(newUser.id, newUser.email, newUser.role);
             return res.json({ jwt });
         } catch (error) {
             console.log(error);
         }
     }
 
+    async refresh(req, res, next) {
+        const {refresh_token} = req.body;
+
+        if (!refresh_token) {
+            next(ApiError.unauthorizedRequest('Refresh token is missing!')); 
+        }
+        try {
+            const decodedToken = jsonwebtoken.verify(refresh_token, process.env.REFRESH_SECRET_KEY);
+            const user = await User.findByPk(decodedToken.id);
+            if (!user) {
+                next(ApiError.unauthorizedRequest('User not found!'));
+            }
+            const access_token = jsonwebtoken.sign({id: user.id, email: user.email, role: user.role}, process.env.ACCESS_SECRET_KEY, {
+                expiresIn: '15m',
+            });
+            res.json({access_token});
+        } catch (e) {
+            next(ApiError.unauthorizedRequest('User not found!'));
+        }
+    }
+
     async auth(req, res, next) {
         try {
-            const jwt = generateJwtToken(req.user.id, req.user.email, req.user.role);
-            return res.json({ jwt });
+            const token = generateJwtTokens(req.user.id, req.user.email, req.user.role);
+            const access_token = token.access_token;
+            return res.json({ access_token });
         } catch (e) {
             console.log(e);
         }
@@ -57,13 +83,14 @@ class UserController {
             if (!comparePassword) {
                 return next(ApiError.internal('Incorrect password'));
             }
-            const jwt = generateJwtToken(user.id, user.email, user.role);
+            const jwt = generateJwtTokens(user.id, user.email, user.role);
 
             return res.json({ jwt });
         } catch (e) {
             console.log(e);
         }
     }
+
 }
 
 module.exports = new UserController();
