@@ -8,8 +8,7 @@ import Button from "@mui/material/Button";
 import WithAuthSkeleton from "./UI/WithAuthSkeleton";
 import { observer } from "mobx-react-lite";
 
-function GuestNavbarPanel() {
-
+const  GuestNavbarPanel = observer(() => {
     return (
         <div>
             <Link href="/login">
@@ -24,6 +23,6 @@ function GuestNavbarPanel() {
             </Link>
         </div>
     );
-}
+});
 
-export default memo(observer(GuestNavbarPanel));
+export default GuestNavbarPanel;

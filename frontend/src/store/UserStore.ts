@@ -7,8 +7,6 @@ export interface UserData {
     iat: number;
     role?: string;
 }
-
-
 export default class UserStore {
     private _isAuth: boolean;
     private _user: UserData | null;
@@ -18,7 +16,7 @@ export default class UserStore {
     constructor() {
         this._isAuth = false;
         this._user = null;
-        this._isAuthLoading = false;
+        this._isAuthLoading = true;
         makeAutoObservable(this);
     }
 

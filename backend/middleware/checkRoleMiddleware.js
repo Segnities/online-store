@@ -6,13 +6,13 @@ function checkRoleMiddleware(role) {
             next();
         }
         try {
-            const token = req.headers.authorization.split(' ')[1];
+            const token = req.headers["Authorization"].split(' ')[1];
 
             if (!token) {
                 console.log('Unauthorized');
                 return res.status(401).json({ message: 'Unauthorized' });
             }
-            const decoded = jwt.verify(token, process.env.SECRET_KEY);
+            const decoded = jwt.verify(token, process.env.ACCESS_SECRET_KEY);
 
             if (decoded.role !== role) {
                 return res.status(403).json({ message: 'Forbidden' });

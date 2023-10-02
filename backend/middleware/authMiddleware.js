@@ -6,16 +6,17 @@ function authEncryptMiddleware(req, res, next) {
         next();
     }
     try {
-        const token = req.headers.authorization.split(' ')[1];
-
-        if (!token) { 
-            return res.status(401).json({ message: 'Unauthorized' });
+        const token = req.headers["Authorization"]?.split(' ')[1];
+        console.log("Token: ",  token);
+        if (!token) {
+            return res.status(401).json({message: 'Unauthorized'});
         }
-        const decoded = jwt.verify(token, process.env.SECRET_KEY);
+        const decoded = jwt.verify(token, process.env.ACCESS_SECRET_KEY);
         req.user = decoded;
         next();
     } catch (error) {
-        res.status(401).json({ message: 'Unauthorized' });
+        console.error('Authentication error:', error.message);
+        return res.status(401).json({message: 'Unauthorized'});
     }
 }
 

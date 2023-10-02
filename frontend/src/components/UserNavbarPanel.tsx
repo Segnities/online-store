@@ -13,11 +13,10 @@ import { observer } from "mobx-react-lite";
 
 import WithAuthSkeleton from "./UI/WithAuthSkeleton";
 
-function UserNavbarPanel() {
+const UserNavbarPanel = observer(() => {
     const store = useContext(MobxContext);
     const isAdmin = store?.user.user?.role === 'ADMIN';
     const router = useRouter();
-
     const logout = () => {
         store?.user.setUser(null);
         store?.user.setIsAuth(false);
@@ -52,6 +51,6 @@ function UserNavbarPanel() {
             </WithAuthSkeleton>
         </Stack>
     );
-}
+});
 
-export default memo(observer(UserNavbarPanel));
+export default UserNavbarPanel;

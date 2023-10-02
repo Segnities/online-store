@@ -1,19 +1,19 @@
 'use client';
 
-import type { FormEvent } from "react";
-import { memo, useContext, useState } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import type {FormEvent} from "react";
+import {useContext, useState} from "react";
+import {usePathname, useRouter} from "next/navigation";
 
 import Card from "@mui/material/Card";
 import TextField from "@mui/material/TextField";
 
-import { login, registration } from "@/http/userAPI";
+import {login, registration} from "@/http/userAPI";
 import AuthButton from "./AuthButton";
 import AuthFormMessage from "./AuthFormMessage";
 import AuthHeader from "./AuthHeader";
-import { observer } from "mobx-react-lite";
-import { MobxContext } from "@/store/MobxProvider";
-import type { UserData } from "@/store/UserStore";
+import {observer} from "mobx-react-lite";
+import {MobxContext} from "@/store/MobxProvider";
+import type {UserData} from "@/store/UserStore";
 
 
 function AuthForm() {
@@ -24,7 +24,6 @@ function AuthForm() {
     const isLoginPage = pathname === '/login';
 
     const router = useRouter();
-
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         let userData;

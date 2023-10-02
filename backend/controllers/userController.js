@@ -14,7 +14,7 @@ const generateJwtTokens = (id, email, role) => {
     const refresh_token = jsonwebtoken.sign({ id, email, role }, process.env.REFRESH_SECRET_KEY, {
         expiresIn: '7d',
     });
-    return { access_token: access_token, refresh_token };
+    return { access_token, refresh_token };
 }
 
 class UserController {
@@ -30,7 +30,7 @@ class UserController {
                 return next(ApiError.badRequest('User already exists'));
             }
             const hashPassword = await bcrypt.hash(password, 5);
-            const newUser = await User.create({ email, role, password: hashPassword, role });
+            const newUser = await User.create({ email, role, password: hashPassword });
             const basket = await Basket.create({ userId: newUser.id });
 
             const jwt = generateJwtTokens(newUser.id, newUser.email, newUser.role);
@@ -63,11 +63,14 @@ class UserController {
 
     async auth(req, res, next) {
         try {
-            const token = generateJwtTokens(req.user.id, req.user.email, req.user.role);
+            const token = generateJwtTokens(req.id, req.email, req.role);
             const access_token = token.access_token;
+            if (!access_token) {
+                throw new Error('No access token available!')
+            }
             return res.json({ access_token });
         } catch (e) {
-            console.log(e);
+           return next(e);
         }
     }
 
