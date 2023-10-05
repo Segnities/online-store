@@ -4,6 +4,7 @@ import type {FormEvent} from "react";
 import {useContext, useState} from "react";
 import {usePathname, useRouter} from "next/navigation";
 
+
 import Card from "@mui/material/Card";
 import TextField from "@mui/material/TextField";
 
@@ -15,18 +16,36 @@ import {observer} from "mobx-react-lite";
 import {MobxContext} from "@/store/MobxProvider";
 import type {UserData} from "@/store/UserStore";
 
+import Button from "@mui/material/Button";
+import GoogleIcon from '@mui/icons-material/Google';
+import firebaseSignUp from "@/firebase/auth/signUp";
 
-function AuthForm() {
+
+const AuthForm = observer(() => {
+    const store = useContext(MobxContext);
+    const router = useRouter();
     const pathname = usePathname();
+
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('');
-    const store = useContext(MobxContext);
+
     const isLoginPage = pathname === '/login';
 
-    const router = useRouter();
+    const signUpWithGoogle = async () => {
+        try {
+           const result = await firebaseSignUp();
+           store?.user.setGoogleUser(result?.user);
+           store?.user.setIsAuth(true);
+           router.push("/");
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         let userData;
+        console.log('Login page: ' + isLoginPage)
         try {
             if (isLoginPage) {
                 const response: UserData = await login(email, password);
@@ -42,9 +61,8 @@ function AuthForm() {
                 setEmail('');
                 setPassword('');
             }
-            store?.user.setUser(userData);
-            store?.user.setIsAuth(true);    
-            router.push('/');
+            store?.user.setJwtUser(userData);
+            store?.user.setIsAuth(true);
         } catch (e) {
             console.log(e);
         }
@@ -53,7 +71,7 @@ function AuthForm() {
     return (
         <Card
             variant="outlined"
-            className="w-4/5 md:w-2/5 flex flex-col gap-5  border-gray-200 rounded-lg p-8 lg:p-14"
+            className="w-4/5 md:w-2/5 flex flex-col gap-5  border-gray-200 rounded-lg p-8 lg:`p-14"
         >
             <AuthHeader />
             <form
@@ -82,9 +100,15 @@ function AuthForm() {
                 />
                 <AuthButton />
                 <AuthFormMessage />
+                <div className="w-full">
+                    <Button type="button" onClick={()=> signUpWithGoogle()}>
+                        <GoogleIcon />
+                        Google
+                    </Button>
+                </div>
             </form>
         </Card>
     );
-}
+});
 
-export default observer(AuthForm);    
+export default AuthForm;

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="ed92e8b9-2580-416d-bbe6-a5e2016b4592" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/AuthForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/AuthForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/AuthLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/AuthLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Navbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/data/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/data/routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/userController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/userController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/userRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/userRouter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/http/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/http/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/http/userAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/http/userAPI.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,9 +18,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2VwLiJqlTCUvptgaaZTDsBv4EI0" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -29,7 +32,11 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "fetch-data",
-    "last_opened_file_path": "D:/Projects/React/online-store/backend",
+    "last_opened_file_path": "D:/Projects/React/online-store/frontend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
@@ -43,6 +50,7 @@
       <option name="presentableId" value="Default" />
       <updated>1695742322005</updated>
       <workItem from="1695742323670" duration="139000" />
+      <workItem from="1696263946760" duration="6255000" />
     </task>
     <servers />
   </component>

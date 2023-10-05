@@ -1,5 +1,7 @@
 const bcrypt = require("bcrypt");
 const jsonwebtoken = require("jsonwebtoken");
+const fs = require('fs');
+const path = require("path");
 
 const { User, Basket } = require("../models/models");
 
@@ -48,7 +50,7 @@ class UserController {
         }
         try {
             const decodedToken = jsonwebtoken.verify(refresh_token, process.env.REFRESH_SECRET_KEY);
-            const user = await User.findByPk(decodedToken.id);
+            const user = await User.findOne({where: {id: decodedToken.id}});
             if (!user) {
                 next(ApiError.unauthorizedRequest('User not found!'));
             }

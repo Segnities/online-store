@@ -1,25 +1,27 @@
 'use client';
 
 import Link from "next/link";
-import { useContext, memo } from "react";
+import {useContext} from "react";
 
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 
-import { MobxContext } from "@/store/MobxProvider";
-import { useRouter } from "next/navigation";
+import {MobxContext} from "@/store/MobxProvider";
+import {useRouter} from "next/navigation";
 
-import { observer } from "mobx-react-lite";
+import {observer} from "mobx-react-lite";
 
 import WithAuthSkeleton from "./UI/WithAuthSkeleton";
+import firebaseSignOut from "@/firebase/auth/signOut";
 
 const UserNavbarPanel = observer(() => {
     const store = useContext(MobxContext);
-    const isAdmin = store?.user.user?.role === 'ADMIN';
+    const isAdmin = store?.user.jwtAuthUser?.role === 'ADMIN';
     const router = useRouter();
     const logout = () => {
-        store?.user.setUser(null);
+        store?.user.setJwtUser(null);
         store?.user.setIsAuth(false);
+        firebaseSignOut();
         localStorage.removeItem('token');
         router.push('/login');
     }
