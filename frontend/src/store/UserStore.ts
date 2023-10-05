@@ -1,5 +1,7 @@
 import { makeAutoObservable } from "mobx";
 
+import type {User as GoogleUser} from "firebase/auth";
+
 export interface UserData {
     id: number;
     email: string;
@@ -7,17 +9,17 @@ export interface UserData {
     iat: number;
     role?: string;
 }
-
-
 export default class UserStore {
     private _isAuth: boolean;
-    private _user: UserData | null;
 
+    private _jwtAuthUser: UserData | null;
     private _isAuthLoading: boolean;
+
+    private _googleAuthUser:GoogleUser | undefined;
 
     constructor() {
         this._isAuth = false;
-        this._user = null;
+        this._jwtAuthUser = null;
         this._isAuthLoading = false;
         makeAutoObservable(this);
     }
@@ -25,8 +27,12 @@ export default class UserStore {
     setIsAuth(auth: boolean) {
         this._isAuth = auth;
     }
-    setUser(user: UserData | null) {
-        this._user = user;
+    setJwtUser(user: UserData | null) {
+        this._jwtAuthUser = user;
+    }
+
+    setGoogleUser(user: GoogleUser | undefined) {
+        this._googleAuthUser = user;
     }
 
     stopLoadingAuth() {
@@ -41,10 +47,10 @@ export default class UserStore {
         return this._isAuthLoading;
     }
 
-    get user() {
-        return this._user;
+    get jwtAuthUser() {
+        return this._jwtAuthUser;
     }
     get role() {
-        return this._user?.role;
+        return this._jwtAuthUser?.role;
     }
 }

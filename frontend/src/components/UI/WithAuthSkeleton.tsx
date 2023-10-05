@@ -16,7 +16,7 @@ interface WithAuthSkeletonProps {
    bgcolor?: StandardCSSProperties['backgroundColor'];
 }
 
-function WithAuthSkeleton(props: WithAuthSkeletonProps) {
+const WithAuthSkeleton = observer((props: WithAuthSkeletonProps) => {
    const {
       children,
    } = props;
@@ -43,6 +43,6 @@ function WithAuthSkeleton(props: WithAuthSkeletonProps) {
       </>
    );
 
-}
+});
 
-export default memo(observer(WithAuthSkeleton));
+export default WithAuthSkeleton;

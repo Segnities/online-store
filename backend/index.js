@@ -17,14 +17,13 @@ app.use(fileUpload({}));
 app.use(cors());
 app.use(express.static(path.resolve(__dirname, 'static')));
 
-
 app.use('/api', mainRouter);
-app.use(errorMiddleware);
-
 
 const db = require('./db.js');
 
 const PORT = process.env.PORT || 5000;
+
+app.use(errorMiddleware);
 
 const start = async () => {
     try {

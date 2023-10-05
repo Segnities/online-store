@@ -1,13 +1,15 @@
 'use client';
 
-import {memo} from "react";
+import {useContext, useEffect} from "react";
 import type {ReactNode} from "react";
 
-import {usePathname} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 
 import {observer} from "mobx-react-lite";
 import Link from "next/link";
 import {Chip} from "@mui/material";
+import {MobxContext} from "@/store/MobxProvider";
+
 
 const routes = [
     {id: '/admin', title: 'Admin', to: '/admin'},
@@ -16,6 +18,16 @@ const routes = [
 
 function AdminLayout({children}: { children: ReactNode }) {
     const pathname = usePathname();
+    const store = useContext(MobxContext);
+    const isAuth = store?.user.isAuth;
+    const router = useRouter();
+
+    useEffect(() => {
+        if (!isAuth) {
+            router.push("/")
+        }
+    }, [isAuth]);
+
     return (
         <section className="w-full grid grid-flow-row p-8">
             <nav className="flex flex-row flex-wrap">
@@ -38,4 +50,4 @@ function AdminLayout({children}: { children: ReactNode }) {
     );
 }
 
-export default memo(observer(AdminLayout));
+export default observer(AdminLayout);

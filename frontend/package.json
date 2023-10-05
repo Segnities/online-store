@@ -23,6 +23,7 @@
     "axios": "^1.4.0",
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.12",
+    "firebase": "^10.4.0",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
     "mobx": "^6.10.0",
