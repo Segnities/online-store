@@ -14,7 +14,7 @@ export const refreshToken = async (): Promise<string | null> => {
         localStorage.setItem('access_token', data?.access_token);
         return data?.access_token;
     } catch (e) {
-        console.log('Refresh token error', e.message);
+        console.log('Refresh token error', e);
         return null;
     }
 }
@@ -41,8 +41,11 @@ export const login = async (email: string, password: string): Promise<UserData> 
 
 export const auth = async (): Promise<UserData | null> => {
     let access_token = localStorage.getItem('access_token');
+    if (!access_token) {
+        return null;
+    }
     console.log("Decoded user");
-    let user = {};
+    let user:UserData | null = null;
     if (access_token) {
         user = jwt_decode(access_token);
         console.log('User', user)
@@ -54,6 +57,7 @@ export const auth = async (): Promise<UserData | null> => {
                 return null;
             }
         }
+        return user;
     }
     // @ts-ignore
     const { data } = await $authHost.get('api/user/auth', {id: user.id, email: user.email, role: user.role});

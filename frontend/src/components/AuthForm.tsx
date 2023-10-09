@@ -45,7 +45,6 @@ const AuthForm = observer(() => {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         let userData;
-        console.log('Login page: ' + isLoginPage)
         try {
             if (isLoginPage) {
                 const response: UserData = await login(email, password);
@@ -63,6 +62,7 @@ const AuthForm = observer(() => {
             }
             store?.user.setJwtUser(userData);
             store?.user.setIsAuth(true);
+            router.push("/");
         } catch (e) {
             console.log(e);
         }

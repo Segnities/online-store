@@ -29,7 +29,6 @@ function TypeBar(props: TypeBarProps) {
     }
     
     useEffect(() => {
-        console.log(types);
         store?.product?.setTypes(types);
     }, []);
 

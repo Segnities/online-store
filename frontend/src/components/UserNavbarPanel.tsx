@@ -17,6 +17,8 @@ import firebaseSignOut from "@/firebase/auth/signOut";
 const UserNavbarPanel = observer(() => {
     const store = useContext(MobxContext);
     const isAdmin = store?.user.jwtAuthUser?.role === 'ADMIN';
+    console.log(store?.user.jwtAuthUser);
+    
     const router = useRouter();
     const logout = () => {
         store?.user.setJwtUser(null);
