@@ -28,7 +28,6 @@ function BrandBar(props: BrandBarProps) {
     }
 
     useEffect(() => {
-        console.log(brands);
         store?.product.setBrands(brands);
     }, []);
 

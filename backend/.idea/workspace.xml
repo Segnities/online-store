@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ed92e8b9-2580-416d-bbe6-a5e2016b4592" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/controllers/userController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/userController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/userRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/userRouter.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/http/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/http/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/http/userAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/http/userAPI.ts" afterDir="false" />
-    </list>
+    <list default="true" id="ed92e8b9-2580-416d-bbe6-a5e2016b4592" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,7 +27,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "fetch-data",
-    "last_opened_file_path": "D:/Projects/React/online-store/frontend",
+    "last_opened_file_path": "D:/Projects/React/websocket-revolution-johny/backend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -51,6 +46,7 @@
       <updated>1695742322005</updated>
       <workItem from="1695742323670" duration="139000" />
       <workItem from="1696263946760" duration="6255000" />
+      <workItem from="1696522773877" duration="83000" />
     </task>
     <servers />
   </component>
